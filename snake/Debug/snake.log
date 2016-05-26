@@ -1,0 +1,4 @@
+﻿  Model.cpp
+d:\prace\snake\snake\snake\model.cpp(31): error C2719: 'M': formal parameter with requested alignment of 16 won't be aligned
+d:\prace\snake\snake\snake\model.cpp(31): error C2719: 'V': formal parameter with requested alignment of 16 won't be aligned
+d:\prace\snake\snake\snake\model.cpp(31): error C2719: 'P': formal parameter with requested alignment of 16 won't be aligned
