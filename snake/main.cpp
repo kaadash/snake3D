@@ -1,47 +1,34 @@
-#include "GL/glew.h"
-#include "GL/glut.h"
-#include "glm/glm.hpp"
-#include "GLFW/glfw3.h"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
-#include "Model.cpp"
-#include "Constants.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-using namespace std;
-using namespace glm;
+#include "main.h"
 
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
 
-mat4 V, M, P;
 void initOpenGLProgram() {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
-	M = mat4(1.0f);
+	M = glm::mat4(1.0f);
 	V = lookAt(
-		vec3(0, 0, -5),
-		vec3(0, 0, 0),
-		vec3(0, 1, 0)
+		glm::vec3(0, 0, -5),
+		glm::vec3(0, 0, 0),
+		glm::vec3(0, 1, 0)
 	);
-	P = perspective(60 * PI / 180, 1.0f, 1.0f, 50.0f);
+	P = glm::perspective(60 * PI / 180, 1.0f, 1.0f, 50.0f);
 }
 
 //Procedura rysuj¹ca zawartoœæ sceny
 void drawScene(GLFWwindow* window) {
-	glClearColor(0.7, 1, 0.2, 1);
+	glClearColor(1, 0.2, 0.7, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3d(1, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(value_ptr(P));
 	glMatrixMode(GL_MODELVIEW);
-	M = rotate(M, 0.01f, vec3(1, 0, 0));
+	M = rotate(M, 0.01f, glm::vec3(1, 0, 0));
 	glLoadMatrixf(value_ptr(V*M));
 	glfwSwapBuffers(window);
 }
