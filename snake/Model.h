@@ -12,7 +12,6 @@ class Model
 {
 public:
 	Model(const char * pathToObj, glm::mat4 &M, glm::mat4 &V, glm::mat4 &P);
-	~Model();
 	void drawModel();
 
 private:

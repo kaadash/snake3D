@@ -35,6 +35,15 @@ void Model::drawModel()
 	// Use our shader
 	// Compute the MVP matrix from keyboard and mouse input
 	glm::mat4 MVP = (*M) * (*V) * (*P);
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(value_ptr(*this->P));
+	glMatrixMode(GL_MODELVIEW);
+	
+	*this->M = rotate(*this->M, 0.01f, glm::vec3(1, 0, 0));
+	float multiplier = (std::rand() % 100) / 1000;
+	*this->M = glm::translate(*this->M, glm::vec3(multiplier, 0.01f, 0.01f));
+
+	glLoadMatrixf(value_ptr(*this->V**this->M));
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);

@@ -1,10 +1,28 @@
 #include "main.h"
-
+float speed = 0;
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
+void key_callback(GLFWwindow* window, int key,
+	int scancode, int action, int mods) {
+	if (action == GLFW_PRESS) {
+		if (key == GLFW_KEY_LEFT) speed = -3.14f;
+		if (key == GLFW_KEY_RIGHT) speed = 3.14f;
+	}
 
-void initOpenGLProgram() {
+	if (action == GLFW_RELEASE) {
+		speed = 0;
+	}
+}
+glm::mat4 newM = glm::mat4(1.0f);
+glm::mat4 newM2 = glm::mat4(1.0f);
+
+glm::mat4 newM3 = glm::mat4(1.0f);
+Model obj("D:/Prace/grafika/ogl-master/ogl-master/tutorial07_model_loading/cube.obj", newM, V, P);
+Model obj2("D:/Prace/grafika/ogl-master/ogl-master/tutorial07_model_loading/cube.obj", newM2, V, P);
+Model obj3("D:/Prace/grafika/ogl-master/ogl-master/tutorial07_model_loading/cube.obj", newM3, V, P);
+
+void initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_DEPTH_TEST);
@@ -12,13 +30,16 @@ void initOpenGLProgram() {
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
 	M = glm::mat4(1.0f);
 	V = lookAt(
-		glm::vec3(0, 0, -5),
+		glm::vec3(10, 20, -5),
 		glm::vec3(0, 0, 0),
-		glm::vec3(0, 1, 0)
+		glm::vec3(0, 100, 0)
 	);
 	P = glm::perspective(60 * PI / 180, 1.0f, 1.0f, 50.0f);
-}
+	newM = glm::translate(newM, glm::vec3(1.0f, 1.0f, 1.0f));
+	newM2 = glm::translate(newM2, glm::vec3(-1.0f, -1.0f, -1.0f));
 
+	glfwSetKeyCallback(window, key_callback);
+}
 //Procedura rysuj¹ca zawartoœæ sceny
 void drawScene(GLFWwindow* window) {
 	glClearColor(1, 0.2, 0.7, 1);
@@ -28,13 +49,18 @@ void drawScene(GLFWwindow* window) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(value_ptr(P));
 	glMatrixMode(GL_MODELVIEW);
-	M = rotate(M, 0.01f, glm::vec3(1, 0, 0));
 	glLoadMatrixf(value_ptr(V*M));
+	newM2 = rotate(newM2, 0.01f, glm::vec3(1, 0, 0));
+	newM = glm::translate(newM, glm::vec3(0.01f, 0.01f, 0.01f));
+	obj.drawModel();
+	obj2.drawModel();
+	obj3.drawModel();
 	glfwSwapBuffers(window);
 }
 
 int main(void)
 {
+	srand(time(NULL));
 	GLFWwindow* window; //WskaŸnik na obiekt reprezentuj¹cy okno
 
 	glfwSetErrorCallback(error_callback);//Zarejestruj procedurê obs³ugi b³êdów
@@ -61,7 +87,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	initOpenGLProgram(); //Operacje inicjuj¹ce
+	initOpenGLProgram(window); //Operacje inicjuj¹ce
 
 						 //G³ówna pêtla
 	while (!glfwWindowShouldClose(window)) //Tak d³ugo jak okno nie powinno zostaæ zamkniête
