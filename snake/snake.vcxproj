@@ -148,14 +148,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="myFloor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="grass.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

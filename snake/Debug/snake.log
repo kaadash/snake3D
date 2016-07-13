@@ -1,3 +1,5 @@
-﻿  Model.cpp
-d:\prace\snake\snake\snake\model.cpp(43): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  snake.vcxproj -> D:\Prace\snake\snake\Debug\snake.exe
+﻿  main.cpp
+c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\myfloor.h(36): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\myfloor.h(36): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\main.cpp(93): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  snake.vcxproj -> C:\Users\Andrzej\Documents\Visual Studio 2015\Projects\snake3D\Debug\snake.exe

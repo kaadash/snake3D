@@ -8,10 +8,13 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "Model.h"
 #include "Constants.h"
+#include "lodepng.h"
+#include "myFloor.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>
 
-glm::mat4 V, M, P;
+GLuint tex;
+glm::mat4 V, M = glm::mat4(1.0f), P;
 
 #endif
