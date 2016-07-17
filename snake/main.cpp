@@ -18,20 +18,20 @@ void key_callback(GLFWwindow* window, int key,
 }
 
 //M = glm::mat4(1.0f);
-//glm::mat4 newM2 = glm::mat4(1.0f);
+glm::mat4 M2 = glm::mat4(1.0f);
 
 //glm::mat4 newM3 = glm::mat4(1.0f);
-//Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/snake3D/snake/smiec.obj", M, V, P);
+Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/snake3D/snake/smiec.obj", M2, V, P);
 //Model obj2("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", M, V, P);
 //Model obj3("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", newM3, V, P);
 
 void initOpenGLProgram(GLFWwindow* window) {
-	//glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	//glEnable(GL_LIGHT1);
 	//glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
 	
 	std::vector<unsigned char> image;   //Alokuj wektor do wczytania obrazka
@@ -58,7 +58,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 		glm::vec3(0, 1, 0)
 	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
-	//M = glm::translate(M, glm::vec3(1.0f, 1.0f, 1.0f));
+	M2 = glm::translate(M2, glm::vec3(0.0f, 3.0f, 0.0f));
 	//M = glm::translate(M, glm::vec3(-1.0f, -1.0f, -1.0f));
 
 	glfwSetKeyCallback(window, key_callback);
@@ -72,19 +72,24 @@ void drawScene(GLFWwindow* window) {
 	glLoadMatrixf(value_ptr(P));
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(V*M));
-	//glColor3d(0, 1, 0);
-	//obj.drawModel();
+
 	M = rotate(M, speed, glm::vec3(0.0f, 1.0f, 0.0f));
-	
+	M2 = rotate(M2, speed, glm::vec3(0.0f, 1.0f, 0.0f));
 	glBindTexture(GL_TEXTURE_2D, tex); //Wybierz teksturę
 	glEnableClientState(GL_VERTEX_ARRAY); //Włącz uzywanie tablicy współrzędnych wierzchołków
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY); //Włącz używanie tablicy współrzędnych teksturowania
 	glVertexPointer(3, GL_FLOAT, 0, myFloorVertices); //Zdefiniuj tablicę, która jest źródłem współrzędnych wierzchołków
 	glTexCoordPointer(2, GL_FLOAT, 0, myFloorTexCoords); //Zdefiniuj tablicę, która jest źródłem współrzędnych teksturowania
 	glDrawArrays(GL_QUADS, 0, myFloorVertexCount); //Narysuj obiekt
+	
+	glLoadMatrixf(value_ptr(V*M2));
+
+	//glColor3d(0, 1, 0);
+	obj.drawModel();
+	
 	glDisableClientState(GL_VERTEX_ARRAY); //Wyłącz uzywanie tablicy współrzędnych wierzchołków
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY); //Wyłącz używanie tablicy współrzędnych teksturowania
-	
+
 	glfwSwapBuffers(window);
 }
 
