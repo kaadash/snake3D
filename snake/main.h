@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <ctime>
 
-GLuint tex;
+GLuint tex[2];
 glm::mat4 V, M = glm::mat4(1.0f), P;
 
 #endif

@@ -17,33 +17,47 @@ void key_callback(GLFWwindow* window, int key,
 	}
 }
 
-//M = glm::mat4(1.0f);
 glm::mat4 M2 = glm::mat4(1.0f);
 
 //glm::mat4 newM3 = glm::mat4(1.0f);
-Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/snake3D/snake/smiec.obj", M2, V, P);
-//Model obj2("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", M, V, P);
+//Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/snake3D/snake/kula.obj", M, V, P);
+//Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", M, V, P);
 //Model obj3("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", newM3, V, P);
 
 void initOpenGLProgram(GLFWwindow* window) {
-	glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	//glEnable(GL_LIGHT1);
 	//glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
 	
-	std::vector<unsigned char> image;   //Alokuj wektor do wczytania obrazka
+	std::vector<unsigned char> image[2];   //Alokuj wektor do wczytania obrazka
 	unsigned width, height;   //Zmienne do których wczytamy wymiary obrazka
 							  //Wczytaj obrazek
-	unsigned error = lodepng::decode(image, width, height, "grass.png");
-	
-	glGenTextures(1, &tex); //Zainicjuj jeden uchwyt
-	glBindTexture(GL_TEXTURE_2D, tex); //Uaktywnij uchwyt
-									   //Wczytaj obrazek do pami?ci KG skojarzonej z uchwytem
+	unsigned ejej = lodepng::decode(image[0], width, height, "grass.png");
+
+	unsigned width2, height2;   //Zmienne do których wczytamy wymiary obrazka
+								//Wczytaj obrazek
+	unsigned ejej2 = lodepng::decode(image[1], width2, height2, "snake.png");
+
+	glGenTextures(1, &tex[0]); //Zainicjuj dwa uchwyty
+	glBindTexture(GL_TEXTURE_2D, tex[0]); //Uaktywnij uchwyt
+										  //Wczytaj obrazek do pami?ci KG skojarzonej z uchwytem
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image.data());
+		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image[0].data());
+
+	//W??cz bilinear filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, tex[1]); //Uaktywnij uchwyt
+										  //Wczytaj obrazek do pami?ci KG skojarzonej z uchwytem
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, width2, height2, 0,
+		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image[1].data());
 
 	//W??cz bilinear filtering
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -53,12 +67,12 @@ void initOpenGLProgram(GLFWwindow* window) {
 
 	M = glm::mat4(1.0f);
 	V = lookAt(
-		glm::vec3(0, 15, -22),
+		glm::vec3(0, 8, -16),
 		glm::vec3(0, 0, 0),
 		glm::vec3(0, 1, 0)
 	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
-	M2 = glm::translate(M2, glm::vec3(0.0f, 3.0f, 0.0f));
+	M2 = glm::translate(M2, glm::vec3(0.0f, 1.0f, 0.0f));
 	//M = glm::translate(M, glm::vec3(-1.0f, -1.0f, -1.0f));
 
 	glfwSetKeyCallback(window, key_callback);
@@ -73,20 +87,29 @@ void drawScene(GLFWwindow* window) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(V*M));
 
+	//glColor3d(0, 1, 0);
+	//obj.drawModel();
 	M = rotate(M, speed, glm::vec3(0.0f, 1.0f, 0.0f));
 	M2 = rotate(M2, speed, glm::vec3(0.0f, 1.0f, 0.0f));
-	glBindTexture(GL_TEXTURE_2D, tex); //Wybierz teksturę
+
+	glBindTexture(GL_TEXTURE_2D, tex[0]); //Wybierz teksturę
 	glEnableClientState(GL_VERTEX_ARRAY); //Włącz uzywanie tablicy współrzędnych wierzchołków
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY); //Włącz używanie tablicy współrzędnych teksturowania
-	glVertexPointer(3, GL_FLOAT, 0, myFloorVertices); //Zdefiniuj tablicę, która jest źródłem współrzędnych wierzchołków
-	glTexCoordPointer(2, GL_FLOAT, 0, myFloorTexCoords); //Zdefiniuj tablicę, która jest źródłem współrzędnych teksturowania
-	glDrawArrays(GL_QUADS, 0, myFloorVertexCount); //Narysuj obiekt
+	glVertexPointer(3, GL_FLOAT, 0, floorVertices); //Zdefiniuj tablicę, która jest źródłem współrzędnych wierzchołków
+	glTexCoordPointer(2, GL_FLOAT, 0, floorTexCoords); //Zdefiniuj tablicę, która jest źródłem współrzędnych teksturowania
+	glDrawArrays(GL_QUADS, 0, floorVertexCount); //Narysuj obiekt
+	glDisableClientState(GL_VERTEX_ARRAY); //Wyłącz uzywanie tablicy współrzędnych wierzchołków
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY); //Wyłącz używanie tablicy współrzędnych teksturowania
 	
+	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(V*M2));
 
-	//glColor3d(0, 1, 0);
-	obj.drawModel();
-	
+	glBindTexture(GL_TEXTURE_2D, tex[1]); //Wybierz teksturę
+	glEnableClientState(GL_VERTEX_ARRAY); //Włącz uzywanie tablicy współrzędnych wierzchołków
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY); //Włącz używanie tablicy współrzędnych teksturowania
+	glVertexPointer(3, GL_FLOAT, 0, cubeVertices); //Zdefiniuj tablicę, która jest źródłem współrzędnych wierzchołków
+	glTexCoordPointer(2, GL_FLOAT, 0, cubeTexCoords); //Zdefiniuj tablicę, która jest źródłem współrzędnych teksturowania
+	glDrawArrays(GL_QUADS, 0, cubeVertexCount); //Narysuj obiekt
 	glDisableClientState(GL_VERTEX_ARRAY); //Wyłącz uzywanie tablicy współrzędnych wierzchołków
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY); //Wyłącz używanie tablicy współrzędnych teksturowania
 
