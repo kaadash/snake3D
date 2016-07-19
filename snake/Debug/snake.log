@@ -1,3 +1,13 @@
-﻿  Model.cpp
-d:\prace\snake\snake\snake\model.cpp(43): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  snake.vcxproj -> D:\Prace\snake\snake\Debug\snake.exe
+﻿  Food.cpp
+main.obj : error LNK2005: "unsigned int floorVertexCount" (?floorVertexCount@@3IA) already defined in Food.obj
+main.obj : error LNK2005: "unsigned int cubeVertexCount" (?cubeVertexCount@@3IA) already defined in Food.obj
+main.obj : error LNK2005: "float * floorVertices" (?floorVertices@@3PAMA) already defined in Food.obj
+main.obj : error LNK2005: "float * floorColors" (?floorColors@@3PAMA) already defined in Food.obj
+main.obj : error LNK2005: "float * floorTexCoords" (?floorTexCoords@@3PAMA) already defined in Food.obj
+main.obj : error LNK2005: "float * cubeVertices" (?cubeVertices@@3PAMA) already defined in Food.obj
+main.obj : error LNK2005: "float * cubeTexCoords" (?cubeTexCoords@@3PAMA) already defined in Food.obj
+main.obj : error LNK2005: "unsigned int * tex" (?tex@@3PAIA) already defined in Food.obj
+main.obj : error LNK2005: "struct glm::tmat4x4<float,0> V" (?V@@3U?$tmat4x4@M$0A@@glm@@A) already defined in Food.obj
+main.obj : error LNK2005: "struct glm::tmat4x4<float,0> M" (?M@@3U?$tmat4x4@M$0A@@glm@@A) already defined in Food.obj
+main.obj : error LNK2005: "struct glm::tmat4x4<float,0> P" (?P@@3U?$tmat4x4@M$0A@@glm@@A) already defined in Food.obj
+D:\Prace\snake-dump\snake3D-master\snake3D-master\Debug\snake.exe : fatal error LNK1169: one or more multiply defined symbols found

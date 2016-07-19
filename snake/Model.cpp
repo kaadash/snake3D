@@ -1,6 +1,5 @@
 #include "model.h"
 
-
 Model::Model(const char *pathToObj, glm::mat4 &M, glm::mat4 &V, glm::mat4 &P)
 {
 	this->M = &M;
@@ -30,7 +29,7 @@ void Model::drawModel()
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
 	// Clear the screen
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Use our shader
 	// Compute the MVP matrix from keyboard and mouse input
@@ -39,11 +38,11 @@ void Model::drawModel()
 	glLoadMatrixf(value_ptr(*this->P));
 	glMatrixMode(GL_MODELVIEW);
 	
-	*this->M = rotate(*this->M, 0.01f, glm::vec3(1, 0, 0));
-	float multiplier = (std::rand() % 100) / 1000;
-	*this->M = glm::translate(*this->M, glm::vec3(multiplier, 0.01f, 0.01f));
+	//*this->M = rotate(*this->M, 0.01f, glm::vec3(1, 0, 0));
+	//float multiplier = (std::rand() % 100) / 1000;
+	//*this->M = glm::translate(*this->M, glm::vec3(multiplier, 0.01f, 0.01f));
 
-	glLoadMatrixf(value_ptr(*this->V**this->M));
+	//glLoadMatrixf(value_ptr(*this->V**this->M));
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -61,7 +60,7 @@ void Model::drawModel()
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
 	glVertexAttribPointer(
 		1,                                // attribute
-		2,                                // size
+		3,                                // size
 		GL_FLOAT,                         // type
 		GL_FALSE,                         // normalized?
 		0,                                // stride

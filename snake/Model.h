@@ -13,8 +13,9 @@ class Model
 public:
 	Model(const char * pathToObj, glm::mat4 &M, glm::mat4 &V, glm::mat4 &P);
 	void drawModel();
+	glm::vec3* verticesArray = &vertices[0];
 
-private:
+public:
 	char * pathToObj;
 	std::vector< glm::vec3 > vertices;
 	std::vector< glm::vec2 > uvs;
@@ -22,5 +23,6 @@ private:
 	glm::mat4 *M;
 	glm::mat4 *P;
 	glm::mat4 *V;
+
 };
 #endif
