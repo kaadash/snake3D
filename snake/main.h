@@ -9,12 +9,14 @@
 #include "Model.h"
 #include "Constants.h"
 #include "lodepng.h"
+#include "Food.h"
+#include "Snake.h"
 #include "myFloor.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>
 
 GLuint tex[2];
-glm::mat4 V, M = glm::mat4(1.0f), P;
+glm::mat4 V, V1, M = glm::mat4(1.0f), P;
 
 #endif

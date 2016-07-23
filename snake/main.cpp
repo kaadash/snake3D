@@ -1,8 +1,9 @@
 ﻿#include "main.h"
 float speed = 0;
-float jumpValue = 0.01f;
 
 glm::mat4 M2 = glm::mat4(1.0f);
+Food apple;
+Snake snake(&M2);
 
 
 void error_callback(int error, const char* description) {
@@ -38,7 +39,6 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
-	
 	std::vector<unsigned char> image[2];   //Alokuj wektor do wczytania obrazka
 	unsigned width, height;   //Zmienne do których wczytamy wymiary obrazka
 							  //Wczytaj obrazek
@@ -70,6 +70,8 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	glEnable(GL_TEXTURE_2D);
+	apple.init("grass.png");
+	snake.init("snake.png");
 
 	M = glm::mat4(1.0f);
 	V = lookAt(
@@ -79,6 +81,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
 	M2 = glm::translate(M2, glm::vec3(0.0f, 1.0f, 0.0f));
+	apple.respawnInNewPlace();
 	//M = glm::translate(M, glm::vec3(-1.0f, -1.0f, -1.0f));
 
 	glfwSetKeyCallback(window, key_callback);
@@ -111,15 +114,9 @@ void drawScene(GLFWwindow* window) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(V*M2));
 
-	glBindTexture(GL_TEXTURE_2D, tex[1]); //Wybierz teksturę
-	glEnableClientState(GL_VERTEX_ARRAY); //Włącz uzywanie tablicy współrzędnych wierzchołków
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY); //Włącz używanie tablicy współrzędnych teksturowania
-	glVertexPointer(3, GL_FLOAT, 0, cubeVertices); //Zdefiniuj tablicę, która jest źródłem współrzędnych wierzchołków
-	glTexCoordPointer(2, GL_FLOAT, 0, cubeTexCoords); //Zdefiniuj tablicę, która jest źródłem współrzędnych teksturowania
-	glDrawArrays(GL_QUADS, 0, cubeVertexCount); //Narysuj obiekt
-	glDisableClientState(GL_VERTEX_ARRAY); //Wyłącz uzywanie tablicy współrzędnych wierzchołków
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY); //Wyłącz używanie tablicy współrzędnych teksturowania
-
+	apple.draw(&V);
+	snake.draw(&V);
+	snake.move();
 	glfwSwapBuffers(window);
 }
 
@@ -135,8 +132,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	window = glfwCreateWindow(1300, 760, "OpenGL", NULL, NULL);  //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL. 
-
+	window = glfwCreateWindow(1300, 760, "Snake", NULL, NULL); 
 	if (!window) //Je¿eli okna nie uda³o siê utworzyæ, to zamknij program
 	{
 		glfwTerminate();

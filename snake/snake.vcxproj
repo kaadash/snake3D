@@ -149,18 +149,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Food.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
+    <ClCompile Include="Snake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Food.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="myFloor.h" />
+    <ClInclude Include="Snake.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="grass.png" />

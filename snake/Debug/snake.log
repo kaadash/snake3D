@@ -1,13 +1,11 @@
-﻿  Food.cpp
-main.obj : error LNK2005: "unsigned int floorVertexCount" (?floorVertexCount@@3IA) already defined in Food.obj
-main.obj : error LNK2005: "unsigned int cubeVertexCount" (?cubeVertexCount@@3IA) already defined in Food.obj
-main.obj : error LNK2005: "float * floorVertices" (?floorVertices@@3PAMA) already defined in Food.obj
-main.obj : error LNK2005: "float * floorColors" (?floorColors@@3PAMA) already defined in Food.obj
-main.obj : error LNK2005: "float * floorTexCoords" (?floorTexCoords@@3PAMA) already defined in Food.obj
-main.obj : error LNK2005: "float * cubeVertices" (?cubeVertices@@3PAMA) already defined in Food.obj
-main.obj : error LNK2005: "float * cubeTexCoords" (?cubeTexCoords@@3PAMA) already defined in Food.obj
-main.obj : error LNK2005: "unsigned int * tex" (?tex@@3PAIA) already defined in Food.obj
-main.obj : error LNK2005: "struct glm::tmat4x4<float,0> V" (?V@@3U?$tmat4x4@M$0A@@glm@@A) already defined in Food.obj
-main.obj : error LNK2005: "struct glm::tmat4x4<float,0> M" (?M@@3U?$tmat4x4@M$0A@@glm@@A) already defined in Food.obj
-main.obj : error LNK2005: "struct glm::tmat4x4<float,0> P" (?P@@3U?$tmat4x4@M$0A@@glm@@A) already defined in Food.obj
-D:\Prace\snake-dump\snake3D-master\snake3D-master\Debug\snake.exe : fatal error LNK1169: one or more multiply defined symbols found
+﻿  main.cpp
+d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(125): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(131): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
+d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(131): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
+d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(147): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
+d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(147): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
+  Food.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Snake.cpp
+  snake.vcxproj -> D:\Prace\snake-dump\snake3D-master\snake3D-master\Debug\snake.exe
