@@ -81,7 +81,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
 	M2 = glm::translate(M2, glm::vec3(0.0f, 1.0f, 0.0f));
-	apple.respawnInNewPlace();
+	apple.respawnInNewPlace(6);
 	//M = glm::translate(M, glm::vec3(-1.0f, -1.0f, -1.0f));
 
 	glfwSetKeyCallback(window, key_callback);

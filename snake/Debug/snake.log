@@ -4,8 +4,4 @@ d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(131): warning C
 d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(131): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
 d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(147): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
 d:\prace\snake-dump\snake3d-master\snake3d-master\snake\main.cpp(147): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
-  Food.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Snake.cpp
   snake.vcxproj -> D:\Prace\snake-dump\snake3D-master\snake3D-master\Debug\snake.exe
