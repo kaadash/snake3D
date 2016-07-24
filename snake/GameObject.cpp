@@ -47,6 +47,9 @@ void GameObject::init(char *pathImage) {
 
 	glEnable(GL_TEXTURE_2D);
 }
+void GameObject::setInitPosition(float x, float y, float z) {
+	this->M = glm::translate(this->M, glm::vec3(x, y, z));
+}
 
 glm::mat4 *GameObject::getM() {
 	return &this->M;

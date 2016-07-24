@@ -1,8 +1,3 @@
-﻿  Snake.cpp
-d:\prace\snake\snake\snake\snake.cpp(4): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(37): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+﻿  Food.cpp
+d:\prace\snake\snake\snake\food.cpp(7): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   snake.vcxproj -> D:\Prace\snake\snake\Debug\snake.exe

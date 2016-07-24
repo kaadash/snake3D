@@ -1,6 +1,6 @@
 #include "Snake.h"
 
-void Snake::move() {
+void Snake::move(GameBoard *gameBoard, Food *food) {
 	int moveValue = 0.01;
 	float newPositionX = 0;
 	float newPositionY = 0;
@@ -30,6 +30,10 @@ void Snake::move() {
 		this->currentPosition.setY(newPositionY);
 	}
 	this->M = glm::translate(this->M, glm::vec3(0.01f, 0, 0));
+	gameBoard->updateSnakeHeadPosition(this->currentPosition);
+	if (gameBoard->checkIfSnakeAteFood()) {
+		food->respawnInNewPlace(2, gameBoard);
+	}
 
 }
 
@@ -66,7 +70,6 @@ void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
 		}
 	}
 }
-
 
 void Snake::grow() {
 

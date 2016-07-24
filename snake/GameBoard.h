@@ -10,6 +10,12 @@ private:
 public:
 	GameBoard();
 	void rotate(float degree);
+	void updateFoodPosition(Coordinate newCords);
+	void updateSnakeHeadPosition(Coordinate newCords);
+	bool comparePosition(float radius, float firstX, float secondX);
+	Coordinate getFoodPosition();
+	Coordinate getSnakeHeadPosition();
+	bool checkIfSnakeAteFood();
 	~GameBoard();
 };
 

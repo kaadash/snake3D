@@ -49,6 +49,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	gameBoard.init("grass.png");
 	apple.init("grass.png");
 	snake.init("snake.png");
+	snake.setInitPosition(0, 1, 0);
 
 	M = glm::mat4(1.0f);
 	V = lookAt(
@@ -57,10 +58,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 		glm::vec3(0, 1, 0)
 	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
-	//M2 = glm::translate(M2, glm::vec3(0.0f, 2.0f, 0.0f));
-	apple.respawnInNewPlace(6);
-	//M = glm::translate(M, glm::vec3(-1.0f, -1.0f, -1.0f));
-
+	apple.respawnInNewPlace(6, &gameBoard);
 	glfwSetKeyCallback(window, key_callback);
 }
 //Procedura rysuj¹ca zawartoœæ sceny
@@ -72,16 +70,12 @@ void drawScene(GLFWwindow* window) {
 	glLoadMatrixf(value_ptr(P));
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(V*M));
-
-	//glColor3d(0, 1, 0);
-	//obj.drawModel();
-	//M = rotate(M, speed, glm::vec3(0.0f, 1.0f, 0.0f));
-	//M2 = rotate(M2, speed, glm::vec3(0.0f, 1.0f, 0.0f));
-	M2 = glm::translate(M2, glm::vec3(0.01f, 0, 0));
+	
 	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
 	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
 	snake.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
-	snake.move();
+	snake.move(&gameBoard, &apple);
+	
 	glfwSwapBuffers(window);
 }
 
