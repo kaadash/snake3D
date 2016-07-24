@@ -1,8 +1,8 @@
 ﻿  Snake.cpp
 d:\prace\snake\snake\snake\snake.cpp(4): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 d:\prace\snake\snake\snake\snake.cpp(11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\prace\snake\snake\snake\snake.cpp(36): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+d:\prace\snake\snake\snake\snake.cpp(15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\prace\snake\snake\snake\snake.cpp(23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\prace\snake\snake\snake\snake.cpp(27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\prace\snake\snake\snake\snake.cpp(37): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
   snake.vcxproj -> D:\Prace\snake\snake\Debug\snake.exe
