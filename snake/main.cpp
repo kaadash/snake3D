@@ -1,6 +1,6 @@
 ﻿#include "main.h"
 float speed = 0;
-const float rotateStep = 0.01;
+const float rotateStep = 0.1;
 glm::mat4 M2 = glm::mat4(1.0f);
 Food apple;
 Snake snake(&M2);
@@ -19,9 +19,12 @@ void key_callback(GLFWwindow* window, int key,
 			gameBoard.rotate(rotateStep);
 			snake.relativeRotate(gameBoard.getM(), rotateStep);
 		}
-		if (key == GLFW_KEY_RIGHT) gameBoard.rotate(-rotateStep);
-		if (key == GLFW_KEY_A) snake.rotate(PI / 2);
-		if(key == GLFW_KEY_D) snake.rotate(-PI / 2);
+		if (key == GLFW_KEY_RIGHT) {
+			gameBoard.rotate(-rotateStep);
+			snake.relativeRotate(gameBoard.getM(), -rotateStep);
+		}
+		if (key == GLFW_KEY_A) snake.rotate(PI / 2, 1);
+		if(key == GLFW_KEY_D) snake.rotate(-PI / 2, -1);
 	}
 
 	if (action == GLFW_RELEASE) {
