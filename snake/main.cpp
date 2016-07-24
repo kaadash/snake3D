@@ -4,6 +4,7 @@ float speed = 0;
 glm::mat4 M2 = glm::mat4(1.0f);
 Food apple;
 Snake snake(&M2);
+GameBoard gameBoard;
 
 
 void error_callback(int error, const char* description) {
@@ -39,37 +40,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
-	std::vector<unsigned char> image[2];   //Alokuj wektor do wczytania obrazka
-	unsigned width, height;   //Zmienne do których wczytamy wymiary obrazka
-							  //Wczytaj obrazek
-	unsigned ejej = lodepng::decode(image[0], width, height, "grass.png");
-
-	unsigned width2, height2;   //Zmienne do których wczytamy wymiary obrazka
-								//Wczytaj obrazek
-	unsigned ejej2 = lodepng::decode(image[1], width2, height2, "snake.png");
-
-	glGenTextures(1, &tex[0]); //Zainicjuj dwa uchwyty
-	glBindTexture(GL_TEXTURE_2D, tex[0]); //Uaktywnij uchwyt
-										  //Wczytaj obrazek do pami?ci KG skojarzonej z uchwytem
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image[0].data());
-
-	//W??cz bilinear filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glEnable(GL_TEXTURE_2D);
-
-	glBindTexture(GL_TEXTURE_2D, tex[1]); //Uaktywnij uchwyt
-										  //Wczytaj obrazek do pami?ci KG skojarzonej z uchwytem
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, width2, height2, 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image[1].data());
-
-	//W??cz bilinear filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glEnable(GL_TEXTURE_2D);
+	gameBoard.init("grass.png");
 	apple.init("grass.png");
 	snake.init("snake.png");
 
@@ -101,21 +72,9 @@ void drawScene(GLFWwindow* window) {
 	M = rotate(M, speed, glm::vec3(0.0f, 1.0f, 0.0f));
 	M2 = rotate(M2, speed, glm::vec3(0.0f, 1.0f, 0.0f));
 	M2 = glm::translate(M2, glm::vec3(0.01f, 0, 0));
-
-	glBindTexture(GL_TEXTURE_2D, tex[0]); //Wybierz teksturę
-	glEnableClientState(GL_VERTEX_ARRAY); //Włącz uzywanie tablicy współrzędnych wierzchołków
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY); //Włącz używanie tablicy współrzędnych teksturowania
-	glVertexPointer(3, GL_FLOAT, 0, floorVertices); //Zdefiniuj tablicę, która jest źródłem współrzędnych wierzchołków
-	glTexCoordPointer(2, GL_FLOAT, 0, floorTexCoords); //Zdefiniuj tablicę, która jest źródłem współrzędnych teksturowania
-	glDrawArrays(GL_QUADS, 0, floorVertexCount); //Narysuj obiekt
-	glDisableClientState(GL_VERTEX_ARRAY); //Wyłącz uzywanie tablicy współrzędnych wierzchołków
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY); //Wyłącz używanie tablicy współrzędnych teksturowania
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(value_ptr(V*M2));
-
-	apple.draw(&V);
-	snake.draw(&V);
+	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
+	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
+	snake.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
 	snake.move();
 	glfwSwapBuffers(window);
 }

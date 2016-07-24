@@ -18,54 +18,16 @@ GameObject::GameObject(glm::mat4 *startingWorldMatrix)
 	this->currentPosition.setY(0);
 }
 
-void GameObject::draw(glm::mat4 *V) {
-	unsigned int cubeVertexCount = 24;
-	float cubeVertices[]{
-		-1,-1,-1,
-		1,-1,-1,
-		1,1,-1,
-		-1,1,-1,
-
-		-1,-1,1,
-		1,-1,1,
-		1,1,1,
-		-1,1,1,
-
-		-1,-1,-1,
-		1,-1,-1,
-		1,-1,1,
-		-1,-1,1,
-
-		-1,1,-1,
-		1,1,-1,
-		1,1,1,
-		-1,1,1,
-
-		-1,-1,-1,
-		-1,-1,1,
-		-1,1,1,
-		-1,1,-1,
-
-		1,-1,-1,
-		1,-1,1,
-		1,1,1,
-		1,1,-1
-	};
-
-	float cubeTexCoords[] = {
-		0,0, 1,0, 1,1, 0,1,
-	};
-
-
+void GameObject::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)  {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(*V * this->M));
 
 	glBindTexture(GL_TEXTURE_2D, this->tex[0]); //Wybierz teksturê
 	glEnableClientState(GL_VERTEX_ARRAY); //W³¹cz uzywanie tablicy wspó³rzêdnych wierzcho³ków
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY); //W³¹cz u¿ywanie tablicy wspó³rzêdnych teksturowania
-	glVertexPointer(3, GL_FLOAT, 0, cubeVertices); //Zdefiniuj tablicê, która jest Ÿród³em wspó³rzêdnych wierzcho³ków
-	glTexCoordPointer(2, GL_FLOAT, 0, cubeTexCoords); //Zdefiniuj tablicê, która jest Ÿród³em wspó³rzêdnych teksturowania
-	glDrawArrays(GL_QUADS, 0, cubeVertexCount); //Narysuj obiekt
+	glVertexPointer(3, GL_FLOAT, 0, objectVertices); //Zdefiniuj tablicê, która jest Ÿród³em wspó³rzêdnych wierzcho³ków
+	glTexCoordPointer(2, GL_FLOAT, 0, objectTexCords); //Zdefiniuj tablicê, która jest Ÿród³em wspó³rzêdnych teksturowania
+	glDrawArrays(GL_QUADS, 0, vertexCount); //Narysuj obiekt
 	glDisableClientState(GL_VERTEX_ARRAY); //Wy³¹cz uzywanie tablicy wspó³rzêdnych wierzcho³ków
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY); //Wy³¹cz u¿ywanie tablicy wspó³rzêdnych teksturowania
 }

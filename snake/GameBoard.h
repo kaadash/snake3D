@@ -1,6 +1,7 @@
 #pragma once
 #include "Coordinate.h"
-class GameBoard
+#include "GameObject.h"
+class GameBoard : public GameObject
 {
 private:
 	Coordinate foodPosition;
@@ -8,7 +9,6 @@ private:
 
 public:
 	GameBoard();
-	void draw();
 	~GameBoard();
 };
 

@@ -10,6 +10,7 @@ public:
 	float getY();
 	void setX(float x);
 	void setY(float y);
+	void updateCords(Coordinate newCords);
 	~Coordinate();
 };
 

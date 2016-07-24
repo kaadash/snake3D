@@ -15,7 +15,7 @@ protected:
 public:
 	GameObject();
 	GameObject(glm::mat4 *startingWorldMatrix);
-	void draw(glm::mat4 *V);
+	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
 	void init(char *pathImage);
 	~GameObject();
 };

@@ -6,7 +6,6 @@ GameBoard::GameBoard()
 {
 }
 
-
 GameBoard::~GameBoard()
 {
 }

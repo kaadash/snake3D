@@ -19,6 +19,11 @@ void Coordinate::setY(float y) {
 
 }
 
+void Coordinate::updateCords(Coordinate newCords) {
+	this->x = newCords.getX();
+	this->y = newCords.getY();
+}
+
 Coordinate::~Coordinate()
 {
 }
