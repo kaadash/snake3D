@@ -12,7 +12,6 @@
 #include "Food.h"
 #include "Snake.h"
 #include "GameBoard.h"
-#include "myFloor.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>

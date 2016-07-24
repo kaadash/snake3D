@@ -48,6 +48,11 @@ void GameObject::init(char *pathImage) {
 	glEnable(GL_TEXTURE_2D);
 }
 
+glm::mat4 *GameObject::getM() {
+	return &this->M;
+}
+
+
 GameObject::~GameObject()
 {
 }

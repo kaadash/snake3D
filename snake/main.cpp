@@ -1,6 +1,6 @@
 ﻿#include "main.h"
 float speed = 0;
-
+const float rotateStep = 0.01;
 glm::mat4 M2 = glm::mat4(1.0f);
 Food apple;
 Snake snake(&M2);
@@ -15,8 +15,11 @@ void error_callback(int error, const char* description) {
 void key_callback(GLFWwindow* window, int key,
 	int scancode, int action, int mods) {
 	if (action == GLFW_PRESS) {
-		if (key == GLFW_KEY_LEFT) speed = -0.01f;
-		if (key == GLFW_KEY_RIGHT) speed = 0.01f;
+		if (key == GLFW_KEY_LEFT) {
+			gameBoard.rotate(rotateStep);
+			snake.relativeRotate(gameBoard.getM(), rotateStep);
+		}
+		if (key == GLFW_KEY_RIGHT) gameBoard.rotate(-rotateStep);
 		if (key == GLFW_KEY_A) snake.rotate(PI / 2);
 		if(key == GLFW_KEY_D) snake.rotate(-PI / 2);
 	}
@@ -51,7 +54,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 		glm::vec3(0, 1, 0)
 	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
-	M2 = glm::translate(M2, glm::vec3(0.0f, 1.0f, 0.0f));
+	//M2 = glm::translate(M2, glm::vec3(0.0f, 2.0f, 0.0f));
 	apple.respawnInNewPlace(6);
 	//M = glm::translate(M, glm::vec3(-1.0f, -1.0f, -1.0f));
 
@@ -69,8 +72,8 @@ void drawScene(GLFWwindow* window) {
 
 	//glColor3d(0, 1, 0);
 	//obj.drawModel();
-	M = rotate(M, speed, glm::vec3(0.0f, 1.0f, 0.0f));
-	M2 = rotate(M2, speed, glm::vec3(0.0f, 1.0f, 0.0f));
+	//M = rotate(M, speed, glm::vec3(0.0f, 1.0f, 0.0f));
+	//M2 = rotate(M2, speed, glm::vec3(0.0f, 1.0f, 0.0f));
 	M2 = glm::translate(M2, glm::vec3(0.01f, 0, 0));
 	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
 	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);

@@ -9,6 +9,7 @@ private:
 
 public:
 	GameBoard();
+	void rotate(float degree);
 	~GameBoard();
 };
 

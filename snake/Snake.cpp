@@ -11,6 +11,11 @@ void Snake::rotate(float degree) {
 	this->M = glm::rotate(this->M, degree, glm::vec3(0, 1.0f, 0));
 }
 
+void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
+	this->M = glm::rotate(*relativeM, degree, glm::vec3(0, 1.0f, 0));
+}
+
+
 void Snake::grow() {
 
 }

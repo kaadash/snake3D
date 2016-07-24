@@ -1,10 +1,4 @@
-﻿  main.cpp
-d:\prace\snake\snake\snake\main.cpp(84): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-d:\prace\snake\snake\snake\main.cpp(90): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
-d:\prace\snake\snake\snake\main.cpp(90): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
-d:\prace\snake\snake\snake\main.cpp(106): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
-d:\prace\snake\snake\snake\main.cpp(106): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  ObjLoader.cpp
-  snake.vcxproj -> D:\Prace\snake\snake\Debug\snake.exe
+﻿  Snake.cpp
+c:\users\andrzej\downloads\hohoho\snake3d\snake\snake.cpp(4): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\andrzej\downloads\hohoho\snake3d\snake\snake.cpp(5): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  snake.vcxproj -> C:\Users\Andrzej\Downloads\hohoho\snake3D\Debug\snake.exe
