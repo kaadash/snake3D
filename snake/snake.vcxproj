@@ -148,7 +148,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="Food.cpp" />
+    <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -158,7 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Food.h" />
+    <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />

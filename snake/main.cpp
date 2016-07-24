@@ -16,8 +16,8 @@ void key_callback(GLFWwindow* window, int key,
 	if (action == GLFW_PRESS) {
 		if (key == GLFW_KEY_LEFT) speed = -0.01f;
 		if (key == GLFW_KEY_RIGHT) speed = 0.01f;
-		if (key == GLFW_KEY_A) M2 = glm::rotate(M2, PI / 2, glm::vec3(0, 1.0f, 0));
-		if(key == GLFW_KEY_D) M2 = glm::rotate(M2, -PI / 2, glm::vec3(0, 1.0f, 0));
+		if (key == GLFW_KEY_A) snake.rotate(PI / 2);
+		if(key == GLFW_KEY_D) snake.rotate(-PI / 2);
 	}
 
 	if (action == GLFW_RELEASE) {

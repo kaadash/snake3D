@@ -14,7 +14,8 @@ GameObject::GameObject(glm::mat4 *startingWorldMatrix)
 {
 	this->M = *startingWorldMatrix;
 	this->tex = new GLuint[2];
-
+	this->currentPosition.setX(0);
+	this->currentPosition.setY(0);
 }
 
 void GameObject::draw(glm::mat4 *V) {
