@@ -84,9 +84,9 @@ void drawScene(GLFWwindow* window) {
 	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
 	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
 	snake.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
-	//if (sprawdz_czas()) {
+	if (sprawdz_czas()) {
 		snake.move(&gameBoard, &apple);
-	//}
+	}
 	
 	glfwSwapBuffers(window);
 }
