@@ -1,14 +1,24 @@
 ﻿#include "main.h"
+
 float speed = 0;
 const float rotateStep = 0.1;
 glm::mat4 M2 = glm::mat4(1.0f);
 Food apple;
 Snake snake(&M2);
 GameBoard gameBoard;
-
+clock_t new_time, start_time = clock();
 
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
+}
+
+bool sprawdz_czas() {
+	new_time = clock();
+	if (new_time - start_time > 1000) {
+		start_time = new_time;
+		return true;
+	}
+	return false;
 }
 
 
@@ -74,7 +84,9 @@ void drawScene(GLFWwindow* window) {
 	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
 	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
 	snake.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
-	snake.move(&gameBoard, &apple);
+	//if (sprawdz_czas()) {
+		snake.move(&gameBoard, &apple);
+	//}
 	
 	glfwSwapBuffers(window);
 }

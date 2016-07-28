@@ -49,11 +49,11 @@ void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
 	glm::mat4 previousState = this->M;
 	this->M = glm::rotate(*relativeM, degree, glm::vec3(0, 1.0f, 0));
 	const float PI = 3.141592653589793f;
-	this->M = glm::translate(*relativeM, glm::vec3(this->currentPosition.getX(), 0, this->currentPosition.getY()));
+	this->M = glm::translate(*relativeM, glm::vec3(this->currentPosition.getX(), 1.0f, this->currentPosition.getY()));
 	if (this->direction % 2 == 0) {
 		//forward
 		if (this->direction == 0) {
-			this->M = glm::rotate(this->M, -PI, glm::vec3(0, 1.0f, 0));
+			this->M = glm::rotate(this->M, 0.0f, glm::vec3(0, 1.0f, 0));
 		}
 		//backward
 		else {
@@ -73,6 +73,11 @@ void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
 
 void Snake::grow() {
 
+}
+
+void Snake::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
+{
+	GameObject::draw(V, objectVertices, objectTexCords, vertexCount);
 }
 
 

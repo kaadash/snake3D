@@ -14,6 +14,7 @@ public:
 	void rotate(float deg, float direction);
 	void relativeRotate(glm::mat4 *relativeM, float degree);
 	void grow();
+	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
 
 	~Snake();
 };
