@@ -4,10 +4,10 @@ unsigned int floorVertexCount = 4;
 unsigned int cubeVertexCount = 24;
 
 float floorVertices[] = {
-	-5,0,-5,
-	5,0,-5,
-	5,0,5,
-	-5,0,5
+	-9,0,-9,
+	9,0,-9,
+	9,0,9,
+	-9,0,9
 };
 
 float floorColors[] = {
@@ -52,4 +52,9 @@ float cubeVertices[]{
 
 float cubeTexCoords[] = {
 	0,0, 1,0, 1,1, 0,1,
+	0,0, 1,0, 1,1, 0,1,
+	0,0, 1,0, 1,1, 0,1,
+	0,0, 1,0, 1,1, 0,1,
+	0,0, 1,0, 1,1, 0,1,
+	0,0, 1,0, 1,1, 0,1
 };

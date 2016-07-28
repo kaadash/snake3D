@@ -32,7 +32,7 @@ void Snake::move(GameBoard *gameBoard, Food *food) {
 	this->M = glm::translate(this->M, glm::vec3(2.0f, 0, 0));
 	gameBoard->updateSnakeHeadPosition(this->currentPosition);
 	if (gameBoard->checkIfSnakeAteFood()) {
-		food->respawnInNewPlace(2, gameBoard);
+		food->respawnInNewPlace(4, gameBoard);
 	}
 
 }
@@ -79,8 +79,6 @@ void Snake::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, uns
 {
 	GameObject::draw(V, objectVertices, objectTexCords, vertexCount);
 }
-
-
 
 Snake::~Snake()
 {

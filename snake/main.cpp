@@ -21,17 +21,18 @@ bool sprawdz_czas() {
 	return false;
 }
 
-
 void key_callback(GLFWwindow* window, int key,
 	int scancode, int action, int mods) {
 	if (action == GLFW_PRESS) {
 		if (key == GLFW_KEY_LEFT) {
 			gameBoard.rotate(rotateStep);
 			snake.relativeRotate(gameBoard.getM(), rotateStep);
+			apple.relativeRotate(gameBoard.getM(), rotateStep);
 		}
 		if (key == GLFW_KEY_RIGHT) {
 			gameBoard.rotate(-rotateStep);
 			snake.relativeRotate(gameBoard.getM(), -rotateStep);
+			apple.relativeRotate(gameBoard.getM(), -rotateStep);
 		}
 		if (key == GLFW_KEY_A) snake.rotate(PI / 2, 1);
 		if(key == GLFW_KEY_D) snake.rotate(-PI / 2, -1);
@@ -41,7 +42,6 @@ void key_callback(GLFWwindow* window, int key,
 		speed = 0;
 	}
 }
-
 
 //glm::mat4 newM3 = glm::mat4(1.0f);
 //Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/snake3D/snake/kula.obj", M, V, P);
@@ -57,18 +57,18 @@ void initOpenGLProgram(GLFWwindow* window) {
 	//glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
 	gameBoard.init("grass.png");
-	apple.init("grass.png");
+	apple.init("apple.png");
 	snake.init("snake.png");
 	snake.setInitPosition(0, 1, 0);
 
 	M = glm::mat4(1.0f);
 	V = lookAt(
-		glm::vec3(0, 8, -16),
+		glm::vec3(0, 12, -24),
 		glm::vec3(0, 0, 0),
 		glm::vec3(0, 1, 0)
 	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
-	apple.respawnInNewPlace(6, &gameBoard);
+	apple.respawnInNewPlace(4, &gameBoard);
 	glfwSetKeyCallback(window, key_callback);
 }
 //Procedura rysuj¹ca zawartoœæ sceny
