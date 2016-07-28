@@ -63,7 +63,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 
 	M = glm::mat4(1.0f);
 	V = lookAt(
-		glm::vec3(0, 12, -24),
+		glm::vec3(0, 12.5, -25),
 		glm::vec3(0, 0, 0),
 		glm::vec3(0, 1, 0)
 	);

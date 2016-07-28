@@ -1,83 +1,58 @@
 #include "Snake.h"
 
+void Snake::init(char *pathImage) {
+	this->snakeParts[0].init(pathImage);
+} 
+//zrobione
+
+void Snake::setInitPosition(float x, float y, float z)
+{
+	this->snakeParts[0].setInitPosition(x, y, z);
+} 
+//zrobione 
+
 void Snake::move(GameBoard *gameBoard, Food *food) {
-	int moveValue = 2;
-	float newPositionX = 0;
-	float newPositionY = 0;
-	//moving on axis X
-	if (this->direction % 2 == 0) {
-		//forward
-		if (this->direction == 0) {
-			newPositionX = this->currentPosition.getX() + 2;
-		}
-		//backward
-		else {
-			newPositionX = this->currentPosition.getX() - 2;
-			//this->M = glm::translate(this->M, glm::vec3(-0.01f, 0, 0));
-		}
-		this->currentPosition.setX(newPositionX);
-	}
-	//moving on axis Y
-	else {
-		if (this->direction == 1 || this->direction == -3) {
-			newPositionY = this->currentPosition.getY() - 2;
-			//this->M = glm::translate(this->M, glm::vec3(0, 0, -0.01));
+	if (this->growing) this->grow();
+
+	for (int i = length - 1; i >= 0; i--) {
+		if (snakeParts[i].isHead()) {
+			snakeParts[i].move(gameBoard);
 		}
 		else {
-			newPositionY = this->currentPosition.getY() + 2;
-			//this->M = glm::translate(this->M, glm::vec3(0, 0, 0.01));
+			snakeParts[i].move(snakeParts[i-1].getCurrentPosition());
 		}
-		this->currentPosition.setY(newPositionY);
 	}
-	this->M = glm::translate(this->M, glm::vec3(2.0f, 0, 0));
-	gameBoard->updateSnakeHeadPosition(this->currentPosition);
+	
 	if (gameBoard->checkIfSnakeAteFood()) {
 		food->respawnInNewPlace(4, gameBoard);
+		this->growing = true;
 	}
-
 }
 
 void Snake::rotate(float degree, float direction) {
-	this->direction += direction;
-	if (this->direction == 4 || this->direction == -4) {
-		this->direction = 0;
-	}
-	this->M = glm::rotate(this->M, degree, glm::vec3(0, 1.0f, 0));
+	this->snakeParts[0].rotate(degree, direction);
 }
 
 void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
-	glm::mat4 previousState = this->M;
-	this->M = glm::rotate(*relativeM, degree, glm::vec3(0, 1.0f, 0));
-	const float PI = 3.141592653589793f;
-	this->M = glm::translate(*relativeM, glm::vec3(this->currentPosition.getX(), 1.0f, this->currentPosition.getY()));
-	if (this->direction % 2 == 0) {
-		//forward
-		if (this->direction == 0) {
-			this->M = glm::rotate(this->M, 0.0f, glm::vec3(0, 1.0f, 0));
-		}
-		//backward
-		else {
-			this->M = glm::rotate(this->M, PI, glm::vec3(0, 1.0f, 0));
-		}
-	}
-	//moving on axis Y
-	else {
-		if (this->direction == 1 || this->direction == -3) {
-			this->M = glm::rotate(this->M, PI / 2, glm::vec3(0, 1.0f, 0));
-		}
-		else {
-			this->M = glm::rotate(this->M, -PI / 2, glm::vec3(0, 1.0f, 0));
-		}
-	}
+	this->snakeParts[0].relativeRotate(relativeM, degree);
 }
 
 void Snake::grow() {
-
-}
+	glm::mat4 M = glm::mat4(1.0f);
+	SnakePart snakePart(&M, false);
+	snakePart.init("snakepart.png");
+	this->snakeParts.push_back(snakePart);
+	
+	this->length++;
+	this->growing = false;
+} 
+//zrobione - chyba
 
 void Snake::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
 {
-	GameObject::draw(V, objectVertices, objectTexCords, vertexCount);
+	for (auto &snakePart : snakeParts) {
+		snakePart.draw(V, objectVertices, objectTexCords, vertexCount);
+	}
 }
 
 Snake::~Snake()

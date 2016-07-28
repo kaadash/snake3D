@@ -18,6 +18,7 @@ public:
 	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
 	void init(char *pathImage);
 	void setInitPosition(float x, float y, float z);
+	Coordinate *getCurrentPosition();
 	glm::mat4 *getM();
 	~GameObject();
 };

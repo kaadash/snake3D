@@ -157,6 +157,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Snake.cpp" />
+    <ClCompile Include="SnakePart.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Snake.h" />
+    <ClInclude Include="SnakePart.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="grass.png" />

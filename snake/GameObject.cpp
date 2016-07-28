@@ -51,6 +51,11 @@ void GameObject::setInitPosition(float x, float y, float z) {
 	this->M = glm::translate(this->M, glm::vec3(x, y, z));
 }
 
+Coordinate *GameObject::getCurrentPosition()
+{
+	return &this->currentPosition;
+}
+
 glm::mat4 *GameObject::getM() {
 	return &this->M;
 }
