@@ -6,7 +6,7 @@ class GameBoard : public GameObject
 private:
 	Coordinate foodPosition;
 	Coordinate snakeHeadPosition;
-
+	float degree = 0;
 public:
 	GameBoard();
 	void rotate(float degree);
@@ -16,6 +16,7 @@ public:
 	Coordinate getFoodPosition();
 	Coordinate getSnakeHeadPosition();
 	bool checkIfSnakeAteFood();
+	float getDegree();
 	~GameBoard();
 };
 

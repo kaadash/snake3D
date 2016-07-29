@@ -33,9 +33,12 @@ void SnakePart::move(GameBoard *gameBoard) {
 	gameBoard->updateSnakeHeadPosition(this->currentPosition);
 }
 
-void SnakePart::move(Coordinate * coordinate) {
+void SnakePart::move(Coordinate * coordinate, glm::mat4 * relativeM, float degree) {
 	this->M = glm::mat4(1.0f);
-	this->M = glm::translate(this->M, glm::vec3(coordinate->getX(), 1, coordinate->getY()));
+	this->M = glm::rotate(*relativeM, 0.1f, glm::vec3(0, 1.0f, 0));
+	this->M = glm::translate(*relativeM, glm::vec3(0, 1.0f, 0));
+
+	this->M = glm::translate(this->M, glm::vec3(coordinate->getX(), 0.0f, coordinate->getY()));
 	this->currentPosition.setX(coordinate->getX());
 	this->currentPosition.setY(coordinate->getY());
 }
@@ -86,6 +89,11 @@ void SnakePart::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords,
 bool SnakePart::isHead()
 {
 	return this->head;
+}
+
+int SnakePart::getDirection()
+{
+	return this->direction;
 }
 
 SnakePart::~SnakePart()

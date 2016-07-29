@@ -3,13 +3,11 @@
 void Snake::init(char *pathImage) {
 	this->snakeParts[0].init(pathImage);
 } 
-//zrobione
 
 void Snake::setInitPosition(float x, float y, float z)
 {
 	this->snakeParts[0].setInitPosition(x, y, z);
 } 
-//zrobione 
 
 void Snake::move(GameBoard *gameBoard, Food *food) {
 	if (this->growing) this->grow();
@@ -19,7 +17,7 @@ void Snake::move(GameBoard *gameBoard, Food *food) {
 			snakeParts[i].move(gameBoard);
 		}
 		else {
-			snakeParts[i].move(snakeParts[i-1].getCurrentPosition());
+			snakeParts[i].move(snakeParts[i-1].getCurrentPosition(), gameBoard->getM(), gameBoard->getDegree());
 		}
 	}
 	
@@ -34,19 +32,20 @@ void Snake::rotate(float degree, float direction) {
 }
 
 void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
-	this->snakeParts[0].relativeRotate(relativeM, degree);
+	for (auto &snakePart : snakeParts) {
+		snakePart.relativeRotate(relativeM, degree);
+	}
 }
 
 void Snake::grow() {
 	glm::mat4 M = glm::mat4(1.0f);
-	SnakePart snakePart(&M, false);
+	SnakePart snakePart(&M, false, snakeParts[length-1].getDirection());
 	snakePart.init("snakepart.png");
 	this->snakeParts.push_back(snakePart);
 	
 	this->length++;
 	this->growing = false;
 } 
-//zrobione - chyba
 
 void Snake::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
 {

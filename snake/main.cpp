@@ -1,12 +1,13 @@
 ﻿#include "main.h"
 
-float speed = 0;
+int speed = 1000;
 const float rotateStep = 0.1;
 glm::mat4 M2 = glm::mat4(1.0f);
 Food apple;
 Snake snake(&M2);
 GameBoard gameBoard;
 clock_t new_time, start_time = clock();
+float zoom = 12.5;
 
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
@@ -14,7 +15,7 @@ void error_callback(int error, const char* description) {
 
 bool sprawdz_czas() {
 	new_time = clock();
-	if (new_time - start_time > 1000) {
+	if (new_time - start_time > speed) {
 		start_time = new_time;
 		return true;
 	}
@@ -35,12 +36,19 @@ void key_callback(GLFWwindow* window, int key,
 			apple.relativeRotate(gameBoard.getM(), -rotateStep);
 		}
 		if (key == GLFW_KEY_A) snake.rotate(PI / 2, 1);
-		if(key == GLFW_KEY_D) snake.rotate(-PI / 2, -1);
+		if (key == GLFW_KEY_D) snake.rotate(-PI / 2, -1);
+		if (key == GLFW_KEY_EQUAL) zoom -= 0.5;
+		if (key == GLFW_KEY_MINUS) zoom += 0.5;
+		if (key == GLFW_KEY_W) {
+			if (speed != 100) speed -= 100;
+		}
+		if (key == GLFW_KEY_S) speed += 100;
+
 	}
 
-	if (action == GLFW_RELEASE) {
-		speed = 0;
-	}
+	//if (action == GLFW_RELEASE) {
+	//	speed = 0;
+	//}
 }
 
 //glm::mat4 newM3 = glm::mat4(1.0f);
@@ -62,11 +70,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	snake.setInitPosition(0, 1, 0);
 
 	M = glm::mat4(1.0f);
-	V = lookAt(
-		glm::vec3(0, 12.5, -25),
-		glm::vec3(0, 0, 0),
-		glm::vec3(0, 1, 0)
-	);
+	
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
 	apple.respawnInNewPlace(4, &gameBoard);
 	glfwSetKeyCallback(window, key_callback);
@@ -75,7 +79,11 @@ void initOpenGLProgram(GLFWwindow* window) {
 void drawScene(GLFWwindow* window) {	
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	V = lookAt(
+		glm::vec3(0, zoom, -2*zoom),
+		glm::vec3(0, 0, 0),
+		glm::vec3(0, 1, 0)
+	);
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(value_ptr(P));
 	glMatrixMode(GL_MODELVIEW);

@@ -17,7 +17,7 @@ public:
 	Snake(glm::mat4 *startingWorldMatrix) { 
 		this->growing = false;
 		this->direction = 0;
-		SnakePart snakePart(startingWorldMatrix, true);
+		SnakePart snakePart(startingWorldMatrix, true, 0);
 		this->snakeParts.push_back(snakePart);
 		this->length = 1;
 	};
@@ -30,4 +30,3 @@ public:
 	void setInitPosition(float x, float y, float z);
 	~Snake();
 };
-

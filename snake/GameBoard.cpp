@@ -33,8 +33,14 @@ bool GameBoard::checkIfSnakeAteFood() {
 	return (comparedX && comparedY);
 }
 
+float GameBoard::getDegree()
+{
+	return this->degree;
+}
+
 void GameBoard::rotate(float degree) {
 	this->M = glm::rotate(this->M, degree, glm::vec3(0, 1.0f, 0));
+	this->degree += degree;
 }
 
 GameBoard::~GameBoard()
