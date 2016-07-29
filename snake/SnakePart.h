@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "GameObject.h"
 #include "GameBoard.h"
 #include "Food.h"

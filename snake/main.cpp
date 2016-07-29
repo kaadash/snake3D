@@ -1,5 +1,7 @@
 ﻿#include "main.h"
-
+#include <windows.h>
+#include <string>
+#include <sstream>
 int speed = 1000;
 const float rotateStep = 0.1;
 glm::mat4 M2 = glm::mat4(1.0f);
@@ -8,12 +10,13 @@ Snake snake(&M2);
 GameBoard gameBoard;
 clock_t new_time, start_time = clock();
 float zoom = 12.5;
+int points = 0;
 
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
 
-bool sprawdz_czas() {
+bool check_time() {
 	new_time = clock();
 	if (new_time - start_time > speed) {
 		start_time = new_time;
@@ -77,6 +80,16 @@ void initOpenGLProgram(GLFWwindow* window) {
 }
 //Procedura rysuj¹ca zawartoœæ sceny
 void drawScene(GLFWwindow* window) {	
+	if (gameBoard.isLoose()) {
+		string tmp;
+		sprintf_s((char*)tmp.c_str(),sizeof((char*)tmp.c_str()),  "%d", points);
+		string str = tmp.c_str();
+
+		std::stringstream ss;
+		ss << "Przegrales!\nZdobyles " << str << " punktow.";
+		MessageBoxA(NULL, ss.str().c_str(), "PRZEGRANA", MB_OK);
+		exit(EXIT_SUCCESS);
+	}
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	V = lookAt(
@@ -92,7 +105,7 @@ void drawScene(GLFWwindow* window) {
 	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
 	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
 	snake.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
-	if (sprawdz_czas()) {
+	if (check_time()) {
 		snake.move(&gameBoard, &apple);
 	}
 	

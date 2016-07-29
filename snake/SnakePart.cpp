@@ -29,6 +29,9 @@ void SnakePart::move(GameBoard *gameBoard) {
 		}
 		this->currentPosition.setY(newPositionY);
 	}
+	if (newPositionX == 10 || newPositionX == -10 || newPositionY == 10 || newPositionY == -10) {
+		gameBoard->setLoose();
+	}
 	this->M = glm::translate(this->M, glm::vec3(2.0f, 0, 0));
 	gameBoard->updateSnakeHeadPosition(this->currentPosition);
 }

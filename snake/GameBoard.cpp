@@ -4,6 +4,8 @@
 
 GameBoard::GameBoard()
 {
+	this->degree = 0;
+	this->loose = false;
 }
 
 void GameBoard::updateFoodPosition(Coordinate newCords) {
@@ -36,6 +38,16 @@ bool GameBoard::checkIfSnakeAteFood() {
 float GameBoard::getDegree()
 {
 	return this->degree;
+}
+
+bool GameBoard::isLoose()
+{
+	return this->loose;
+}
+
+void GameBoard::setLoose()
+{
+	this->loose = true;
 }
 
 void GameBoard::rotate(float degree) {
