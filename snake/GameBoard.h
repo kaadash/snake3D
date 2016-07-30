@@ -8,6 +8,7 @@ private:
 	Coordinate snakeHeadPosition;
 	float degree;
 	bool loose;
+	int points;
 public:
 	GameBoard();
 	void rotate(float degree);
@@ -20,6 +21,8 @@ public:
 	float getDegree();
 	bool isLoose();
 	void setLoose();
+	int getPoints();
+	void increasePoints();
 	~GameBoard();
 };
 

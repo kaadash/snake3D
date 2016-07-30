@@ -13,6 +13,9 @@ private:
 	std::vector <SnakePart> snakeParts;
 	int length;
 	bool growing;
+	short turn;
+	const float PI = 3.141592653589793f;
+
 public:
 	Snake(glm::mat4 *startingWorldMatrix) { 
 		this->growing = false;
@@ -28,5 +31,9 @@ public:
 	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
 	void init(char *pathImage);
 	void setInitPosition(float x, float y, float z);
+	void turnLeft();
+	void turnRight();
+	void dontTurn();
+	short getTurn();
 	~Snake();
 };

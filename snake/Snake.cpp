@@ -7,10 +7,44 @@ void Snake::init(char *pathImage) {
 void Snake::setInitPosition(float x, float y, float z)
 {
 	this->snakeParts[0].setInitPosition(x, y, z);
-} 
+}
+
+void Snake::turnLeft()
+{
+	this->turn = 1;
+}
+
+void Snake::turnRight()
+{
+	this->turn = 2;
+}
+
+void Snake::dontTurn()
+{
+	this->turn = 0;
+}
+
+short Snake::getTurn()
+{
+	return this->turn;
+}
+
 
 void Snake::move(GameBoard *gameBoard, Food *food) {
-	if (this->growing) this->grow();
+	switch (this->turn) {
+	case 1:
+		rotate(PI / 2, 1);
+		break;
+	case 2:
+		rotate(-PI / 2, -1);
+		break;
+	}
+	dontTurn();
+
+	if (this->growing) {
+		gameBoard->increasePoints();
+		this->grow();
+	}
 
 	for (int i = length - 1; i >= 0; i--) {
 		if (snakeParts[i].isHead()) {

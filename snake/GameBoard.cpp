@@ -4,6 +4,7 @@
 
 GameBoard::GameBoard()
 {
+	this->points = 0;
 	this->degree = 0;
 	this->loose = false;
 }
@@ -48,6 +49,16 @@ bool GameBoard::isLoose()
 void GameBoard::setLoose()
 {
 	this->loose = true;
+}
+
+int GameBoard::getPoints()
+{
+	return this->points;
+}
+
+void GameBoard::increasePoints()
+{
+	this->points++;
 }
 
 void GameBoard::rotate(float degree) {

@@ -1,16 +1,4 @@
 ﻿#include "main.h"
-#include <windows.h>
-#include <string>
-#include <sstream>
-int speed = 1000;
-const float rotateStep = 0.1;
-glm::mat4 M2 = glm::mat4(1.0f);
-Food apple;
-Snake snake(&M2);
-GameBoard gameBoard;
-clock_t new_time, start_time = clock();
-float zoom = 12.5;
-int points = 0;
 
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
@@ -38,15 +26,22 @@ void key_callback(GLFWwindow* window, int key,
 			snake.relativeRotate(gameBoard.getM(), -rotateStep);
 			apple.relativeRotate(gameBoard.getM(), -rotateStep);
 		}
-		if (key == GLFW_KEY_A) snake.rotate(PI / 2, 1);
-		if (key == GLFW_KEY_D) snake.rotate(-PI / 2, -1);
+		if (key == GLFW_KEY_A) {
+			if (snake.getTurn() == 0) {
+				snake.turnLeft();
+			}
+		}
+		if (key == GLFW_KEY_D) {
+			if (snake.getTurn() == 0) {
+				snake.turnRight();
+			}
+		}
 		if (key == GLFW_KEY_EQUAL) zoom -= 0.5;
 		if (key == GLFW_KEY_MINUS) zoom += 0.5;
 		if (key == GLFW_KEY_W) {
 			if (speed != 100) speed -= 100;
 		}
 		if (key == GLFW_KEY_S) speed += 100;
-
 	}
 
 	//if (action == GLFW_RELEASE) {
@@ -82,14 +77,15 @@ void initOpenGLProgram(GLFWwindow* window) {
 void drawScene(GLFWwindow* window) {	
 	if (gameBoard.isLoose()) {
 		string tmp;
-		sprintf_s((char*)tmp.c_str(),sizeof((char*)tmp.c_str()),  "%d", points);
+		sprintf_s((char*)tmp.c_str(),sizeof((char*)tmp.c_str()),  "%d", gameBoard.getPoints());
 		string str = tmp.c_str();
-
+		
 		std::stringstream ss;
 		ss << "Przegrales!\nZdobyles " << str << " punktow.";
 		MessageBoxA(NULL, ss.str().c_str(), "PRZEGRANA", MB_OK);
 		exit(EXIT_SUCCESS);
 	}
+
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	V = lookAt(
