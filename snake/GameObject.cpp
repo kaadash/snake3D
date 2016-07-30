@@ -56,6 +56,11 @@ Coordinate *GameObject::getCurrentPosition()
 	return &this->currentPosition;
 }
 
+Coordinate & GameObject::getCurrentPosition2()
+{
+	return this->currentPosition;
+}
+
 glm::mat4 *GameObject::getM() {
 	return &this->M;
 }

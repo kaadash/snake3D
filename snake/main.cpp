@@ -70,7 +70,13 @@ void initOpenGLProgram(GLFWwindow* window) {
 	M = glm::mat4(1.0f);
 	
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
-	apple.respawnInNewPlace(4, &gameBoard);
+
+	std::vector<Coordinate> coordinates;
+	for (auto &snakePart : snake.getSnakeParts()) {
+		coordinates.push_back(snakePart.getCurrentPosition2());
+	}
+
+	apple.respawnInNewPlace(4, &gameBoard, coordinates);
 	glfwSetKeyCallback(window, key_callback);
 }
 //Procedura rysuj¹ca zawartoœæ sceny

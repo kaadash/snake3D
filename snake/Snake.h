@@ -35,5 +35,6 @@ public:
 	void turnRight();
 	void dontTurn();
 	short getTurn();
+	std::vector <SnakePart> getSnakeParts();
 	~Snake();
 };

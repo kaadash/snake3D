@@ -19,6 +19,7 @@ public:
 	void init(char *pathImage);
 	void setInitPosition(float x, float y, float z);
 	Coordinate *getCurrentPosition();
+	Coordinate &getCurrentPosition2();
 	glm::mat4 *getM();
 	~GameObject();
 };

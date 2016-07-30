@@ -29,6 +29,11 @@ short Snake::getTurn()
 	return this->turn;
 }
 
+std::vector<SnakePart> Snake::getSnakeParts()
+{
+	return this->snakeParts;
+}
+
 
 void Snake::move(GameBoard *gameBoard, Food *food) {
 	switch (this->turn) {
@@ -56,7 +61,11 @@ void Snake::move(GameBoard *gameBoard, Food *food) {
 	}
 	
 	if (gameBoard->checkIfSnakeAteFood()) {
-		food->respawnInNewPlace(4, gameBoard);
+		std::vector<Coordinate> coordinates;
+		for (auto &snakePart : snakeParts) {
+			coordinates.push_back(snakePart.getCurrentPosition2());
+		}
+		food->respawnInNewPlace(4, gameBoard, coordinates);
 		this->growing = true;
 	}
 }
