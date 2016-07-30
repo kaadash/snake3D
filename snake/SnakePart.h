@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "GameObject.h"
 #include "GameBoard.h"
 #include "Food.h"
@@ -15,7 +16,7 @@ public:
 		this->direction = direction;
 		this->head = head;
 	};
-	void move(GameBoard *gameBoard);
+	void move(GameBoard *gameBoard, std::vector <SnakePart> &snakeParts);
 	void move(Coordinate * coordinate, glm::mat4 * relativeM, float degree);
 	void rotate(float deg, float direction);
 	void relativeRotate(glm::mat4 *relativeM, float degree);

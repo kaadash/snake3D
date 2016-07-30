@@ -48,7 +48,7 @@ void Snake::move(GameBoard *gameBoard, Food *food) {
 
 	for (int i = length - 1; i >= 0; i--) {
 		if (snakeParts[i].isHead()) {
-			snakeParts[i].move(gameBoard);
+			snakeParts[i].move(gameBoard, this->snakeParts);
 		}
 		else {
 			snakeParts[i].move(snakeParts[i-1].getCurrentPosition(), gameBoard->getM(), gameBoard->getDegree());
