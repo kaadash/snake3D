@@ -1,0 +1,29 @@
+#version 330
+
+//Zmienne jednorodne
+uniform mat4 P;
+uniform mat4 V;
+uniform mat4 M;
+
+uniform vec4 lightPos0; //Wspolrzedne zrodla swiatla w przestrzeni swiata
+
+//Atrybuty
+in vec4 vertex; //wspolrzedne wierzcholka w przestrzeni modelu
+in vec4 color;  //kolor wierzcholka
+in vec4 normal; //wektor normalny w wierzcholku 
+
+//Zmienne interpolowane
+out vec4 vN; //interpolowany wektor normalny w przestrzeni oka
+out vec4 vV; //interpolowany wektor do obserwatora w przestrzeni oka
+out vec4 vL; //interpolowany wektor do zrodla swiatla w przestrzeni oka
+out vec4 iC; //interpolowany kolor wierzcholka
+
+void main(void) {
+	gl_Position=P*V*M*vertex; //Oblicz wspolrzedne wierzcho³ka w przestrzeni przyciecia
+
+	vN=normalize(V*M*normal); //Oblicz i interpoluj wektor normalny w przestrzeni oka
+	vL=normalize(V*lightPos0-V*M*vertex); //Oblicz i interpoluj wektor do zrodla swiatla w przestrzeni oka
+	vV=normalize(vec4(0,0,0,1)-V*M*vertex); //Oblicz i interpoluj wektor do obserwatora w przestrzeni oka
+
+	iC=color; //Interpoluj kolor wierzcho³ka
+}

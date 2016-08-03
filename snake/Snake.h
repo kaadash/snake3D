@@ -28,7 +28,7 @@ public:
 	void rotate(float deg, float direction);
 	void relativeRotate(glm::mat4 *relativeM, float degree);
 	void grow();
-	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
+	void draw(GLuint vao, ShaderProgram *shaderProgram, glm::mat4 *V, glm::mat4 *M, glm::mat4 *P, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
 	void init(char *pathImage);
 	void setInitPosition(float x, float y, float z);
 	void turnLeft();

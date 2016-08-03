@@ -1,0 +1,28 @@
+#version 330
+
+out vec4 pixelColor; //Zmienna wyjsciowa fragment shadera. Zapisuje sie do niej ostateczny (prawie) kolor piksela
+
+in vec4 vN; //interpolowany wektor normalny w przestrzeni oka
+in vec4 vV; //interpolowany wektor do obserwatora w przestrzeni oka
+in vec4 vL; //interpolowany wektor do zrodla swiatla w przestrzeni oka
+in vec4 iC; //interpolowany kolor wierzcholka
+
+void main(void) {
+	vec4 mN=normalize(vN); //normalizuj interpolowany wektor normalny w przestrzeni oka
+	vec4 mL=normalize(vL); //normalizuj interpolowany wektor do obserwatora w przestrzeni oka
+	vec4 mV=normalize(vV); //normalizuj interpolowany wektor do zrodla swiatla w przestrzeni oka
+	vec4 mR=reflect(-mL,mN); //oblicz wektor odbity w przestrzeni oka
+
+	vec4 Ma=vec4(0,0,0,1); //Kolor materialu dla swiatla otoczenia
+	vec4 La=vec4(0,0,0,1); //Kolor swiatla otoczenia
+	vec4 Md=iC; //Kolor materialu dla swiatla rozproszonego
+	vec4 Ld=vec4(1,1,1,1); //Kolor swiatla rozpraszanego
+	vec4 Ms=vec4(1,1,1,1); //Kolor materialu dla swiatla odbitego
+	vec4 Ls=vec4(1,1,1,1); //Kolor swiatla odbijanego
+	float shininess=50; //Polyskliwosc materialu
+
+	float nl=max(0,dot(mN,mL)); //Oblicz czlon Lamberta
+	float rv=pow(max(0,dot(mN,mL)),shininess); //Oblicz czlon Phonga
+
+	pixelColor=Ma*La+Md*Ld*nl+Ms*Ls*rv; //Oblicz model oswietlenia i zwroc jako kolor piksela
+}

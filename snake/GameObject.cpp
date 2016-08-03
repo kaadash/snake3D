@@ -18,9 +18,20 @@ GameObject::GameObject(glm::mat4 *startingWorldMatrix)
 	this->currentPosition.setY(0);
 }
 
-void GameObject::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)  {
+void GameObject::draw(GLuint vao, ShaderProgram *shaderProgram,  glm::mat4 *V, glm::mat4 *M, glm::mat4 *P,
+	float *objectVertices, float *objectTexCords, unsigned int vertexCount)  {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(*V * this->M));
+	shaderProgram->use();
+	glUniformMatrix4fv(shaderProgram->getUniformLocation("P"), 1, false, glm::value_ptr(*P));
+	glUniformMatrix4fv(shaderProgram->getUniformLocation("V"), 1, false, glm::value_ptr(*V));
+	glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, glm::value_ptr(*M));
+
+	glUniform4f(shaderProgram->getUniformLocation("lightPos0"), 0, 0, -5, 1); //Przekazanie wspó³rzêdnych Ÿród³a œwiat³a do zmiennej jednorodnej lightPos0
+
+																			  //Uaktywnienie VAO i tym samym uaktywnienie predefiniowanych w tym VAO powi¹zañ slotów atrybutów z tablicami z danymi
+	glBindVertexArray(vao);
+
 
 	glBindTexture(GL_TEXTURE_2D, this->tex[0]); //Wybierz teksturê
 	glEnableClientState(GL_VERTEX_ARRAY); //W³¹cz uzywanie tablicy wspó³rzêdnych wierzcho³ków

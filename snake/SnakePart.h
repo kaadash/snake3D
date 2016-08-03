@@ -20,7 +20,7 @@ public:
 	void move(Coordinate * coordinate, glm::mat4 * relativeM, float degree);
 	void rotate(float deg, float direction);
 	void relativeRotate(glm::mat4 *relativeM, float degree);
-	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
+	void draw(GLuint vao, ShaderProgram *shaderProgram, glm::mat4 *V, glm::mat4 *M, glm::mat4 *P, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
 	bool isHead();
 	int getDirection();
 	~SnakePart();

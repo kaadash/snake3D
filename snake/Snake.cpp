@@ -90,10 +90,10 @@ void Snake::grow() {
 	this->growing = false;
 } 
 
-void Snake::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
+void Snake::draw(GLuint vao, ShaderProgram *shaderProgram, glm::mat4 *V, glm::mat4 *M, glm::mat4 *P, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
 {
 	for (auto &snakePart : snakeParts) {
-		snakePart.draw(V, objectVertices, objectTexCords, vertexCount);
+		snakePart.draw(vao, shaderProgram, V, M, P, objectVertices, objectTexCords, vertexCount);
 	}
 }
 

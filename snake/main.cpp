@@ -1,5 +1,14 @@
 ﻿#include "main.h"
 
+//Uchwyty na shadery
+ShaderProgram *shaderProgram; //Wskaźnik na obiekt reprezentujący program cieniujący.
+
+							  //Uchwyty na VAO i bufory wierzchołków
+GLuint vao;
+GLuint bufVertices; //Uchwyt na bufor VBO przechowujący tablicę współrzędnych wierzchołków
+GLuint bufColors;  //Uchwyt na bufor VBO przechowujący tablicę kolorów
+GLuint bufNormals; //Uchwyt na bufor VBO przechowujący tablickę wektorów normalnych
+
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
@@ -54,13 +63,54 @@ void key_callback(GLFWwindow* window, int key,
 //Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", M, V, P);
 //Model obj3("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", newM3, V, P);
 
+
+//Tworzy bufor VBO z tablicy
+GLuint makeBuffer(void *data, int vertexCount, int vertexSize) {
+	GLuint handle;
+
+	glGenBuffers(1, &handle);//Wygeneruj uchwyt na Vertex Buffer Object (VBO), który będzie zawierał tablicę danych
+	glBindBuffer(GL_ARRAY_BUFFER, handle);  //Uaktywnij wygenerowany uchwyt VBO 
+	glBufferData(GL_ARRAY_BUFFER, vertexCount*vertexSize, data, GL_STATIC_DRAW);//Wgraj tablicę do VBO
+
+	return handle;
+}
+
+//Przypisuje bufor VBO do atrybutu 
+void assignVBOtoAttribute(ShaderProgram *shaderProgram, char* attributeName, GLuint bufVBO, int vertexSize) {
+	GLuint location = shaderProgram->getAttribLocation(attributeName); //Pobierz numery slotów dla atrybutu
+	glBindBuffer(GL_ARRAY_BUFFER, bufVBO);  //Uaktywnij uchwyt VBO 
+	glEnableVertexAttribArray(location); //Włącz używanie atrybutu o numerze slotu zapisanym w zmiennej location
+	glVertexAttribPointer(location, vertexSize, GL_FLOAT, GL_FALSE, 0, NULL); //Dane do slotu location mają być brane z aktywnego VBO
+}
+
 void initOpenGLProgram(GLFWwindow* window) {
+	
 	//glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHT1);
-	//glShadeModel(GL_FLAT);
+
+	shaderProgram = new ShaderProgram("vshader.txt", NULL, "fshader.txt"); //Wczytaj program cieniujący 
+
+
+	//*****Przygotowanie do rysowania pojedynczego obiektu*******
+	//Zbuduj VBO z danymi obiektu do narysowania
+	bufVertices = makeBuffer(cubeVertices, cubeVertexCount, sizeof(float) * 4); //VBO ze współrzędnymi wierzchołków
+	bufColors = makeBuffer(colors, cubeVertexCount, sizeof(float) * 4);//VBO z kolorami wierzchołków
+	bufNormals = makeBuffer(normals, cubeVertexCount, sizeof(float) * 4);//VBO z wektorami normalnymi wierzchołków
+
+																	 //Zbuduj VAO wiążący atrybuty z konkretnymi VBO
+	glGenVertexArrays(1, &vao); //Wygeneruj uchwyt na VAO i zapisz go do zmiennej globalnej
+
+	glBindVertexArray(vao); //Uaktywnij nowo utworzony VAO
+
+	assignVBOtoAttribute(shaderProgram, "vertex", bufVertices, 4); //"vertex" odnosi się do deklaracji "in vec4 vertex;" w vertex shaderze
+	assignVBOtoAttribute(shaderProgram, "color", bufColors, 4); //"color" odnosi się do deklaracji "in vec4 color;" w vertex shaderze
+	assignVBOtoAttribute(shaderProgram, "normal", bufNormals, 4); //"normal" odnosi się do deklaracji "in vec4 normal;" w vertex shaderze
+
+	glBindVertexArray(0); //Dezaktywuj VAO
+
+
+	// włączenie testu bufora głębokości
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_COLOR_MATERIAL);
+	
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
 	gameBoard.init("grass.png");
 	apple.init("apple.png");
@@ -104,9 +154,9 @@ void drawScene(GLFWwindow* window) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(value_ptr(V*M));
 	
-	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
-	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
-	snake.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
+	//gameBoard.draw(vao, shaderProgram, &V, &M, &P, floorVertices, floorTexCoords, floorVertexCount);
+	apple.draw(vao, shaderProgram, &V, &M, &P, cubeVertices, cubeTexCoords, cubeVertexCount);
+	snake.draw(vao, shaderProgram, &V, &M, &P, cubeVertices, cubeTexCoords, cubeVertexCount);
 	if (check_time()) {
 		snake.move(&gameBoard, &apple);
 	}

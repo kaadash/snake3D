@@ -18,6 +18,7 @@
 #include <ctime>
 #include <string>
 #include <sstream>
+#include "shaderprogram.h"
 
 GLuint tex[2];
 glm::mat4 V, V1, M = glm::mat4(1.0f), P;

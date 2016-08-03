@@ -6,6 +6,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "Coordinate.h"
+#include "shaderprogram.h"
 class GameObject
 {
 protected:
@@ -15,7 +16,7 @@ protected:
 public:
 	GameObject();
 	GameObject(glm::mat4 *startingWorldMatrix);
-	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
+	void draw(GLuint vao, ShaderProgram *shaderProgram, glm::mat4 *V, glm::mat4 *M, glm::mat4 *P, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
 	void init(char *pathImage);
 	void setInitPosition(float x, float y, float z);
 	Coordinate *getCurrentPosition();

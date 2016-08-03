@@ -85,9 +85,9 @@ void SnakePart::relativeRotate(glm::mat4 * relativeM, float degree) {
 	}
 }
 
-void SnakePart::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
+void SnakePart::draw(GLuint vao, ShaderProgram *shaderProgram, glm::mat4 *V, glm::mat4 *M, glm::mat4 *P, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
 {
-	GameObject::draw(V, objectVertices, objectTexCords, vertexCount);
+	GameObject::draw(vao, shaderProgram, V, M, P, objectVertices, objectTexCords, vertexCount);
 }
 
 bool SnakePart::isHead()
