@@ -1,8 +1,12 @@
 ﻿  main.cpp
 d:\prace\snake\snake\snake\main.h(25): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\prace\snake\snake\snake\main.cpp(138): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-d:\prace\snake\snake\snake\main.cpp(144): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
-d:\prace\snake\snake\snake\main.cpp(144): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
-d:\prace\snake\snake\snake\main.cpp(160): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
-d:\prace\snake\snake\snake\main.cpp(160): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
+d:\prace\snake\snake\snake\main.cpp(66): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+d:\prace\snake\snake\snake\main.cpp(66): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+d:\prace\snake\snake\snake\main.cpp(77): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+d:\prace\snake\snake\snake\main.cpp(91): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+d:\prace\snake\snake\snake\main.cpp(168): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\prace\snake\snake\snake\main.cpp(174): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
+d:\prace\snake\snake\snake\main.cpp(174): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
+d:\prace\snake\snake\snake\main.cpp(190): warning C4566: character represented by universal-character-name '\u00BF' cannot be represented in the current code page (1250)
+d:\prace\snake\snake\snake\main.cpp(190): warning C4566: character represented by universal-character-name '\u00E6' cannot be represented in the current code page (1250)
   snake.vcxproj -> D:\Prace\snake\snake\Debug\snake.exe

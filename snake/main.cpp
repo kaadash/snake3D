@@ -54,12 +54,37 @@ void key_callback(GLFWwindow* window, int key,
 //Model obj3("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", newM3, V, P);
 
 void initOpenGLProgram(GLFWwindow* window) {
-	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHTING); 
+	
 	glEnable(GL_LIGHT0);
+	GLfloat light1_ambient[] = { 1, 1, 1, 1.0 };
+	GLfloat light1_diffuse[] = { 0.2, 1.0, 1.0, 1.0 };
+	GLfloat light1_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light1_position[] = { -2.0, 2.0, 1.0, 1.0 };
+	GLfloat spot_direction[] = { -1.0, -1.0, 0.0 };
+
+	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
+	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 10);
+	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
+
+	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
+	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
+	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
+
 	glEnable(GL_LIGHT1);
+
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
+	glColorMaterial(GL_FRONT, GL_DIFFUSE);
+
 	glEnable(GL_COLOR_MATERIAL);
+
+	glColor3f(1, 0.2, 0.6);
+
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
 	glGenTextures(4, &tex[0]); //Zainicjuj dwa uchwyty
 	
