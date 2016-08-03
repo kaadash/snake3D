@@ -54,12 +54,12 @@ void key_callback(GLFWwindow* window, int key,
 //Model obj3("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", newM3, V, P);
 
 void initOpenGLProgram(GLFWwindow* window) {
-	//glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHT1);
-	//glShadeModel(GL_FLAT);
+	glEnable(GL_LIGHT1);
+	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
 	glGenTextures(4, &tex[0]); //Zainicjuj dwa uchwyty
 	
