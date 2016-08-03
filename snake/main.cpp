@@ -49,8 +49,7 @@ void key_callback(GLFWwindow* window, int key,
 	//}
 }
 
-//glm::mat4 newM3 = glm::mat4(1.0f);
-//Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/snake3D/snake/kula.obj", M, V, P);
+//Model obj("Jabko8.obj", M, V, P);
 //Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", M, V, P);
 //Model obj3("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", newM3, V, P);
 
@@ -62,13 +61,19 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_COLOR_MATERIAL);
 	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
-	gameBoard.init("grass.png");
-	apple.init("apple.png");
-	snake.init("snake.png");
+	glGenTextures(4, &tex[0]); //Zainicjuj dwa uchwyty
+	
+	gameBoard.init2("grass.png", "Podloga2.obj");
+	apple.init2("jabkotextura.png", "Jabko8.obj"); // to sie nie zmienia
+	snake.init("snake.png", "KostkaRosolowa2.obj");
 	snake.setInitPosition(0, 1, 0);
 
 	M = glm::mat4(1.0f);
-	
+	V = lookAt(
+		glm::vec3(0, zoom, -2 * zoom),
+		glm::vec3(0, 0, 0),
+		glm::vec3(0, 1, 0)
+	);
 	P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f);
 
 	std::vector<Coordinate> coordinates;
@@ -77,6 +82,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	}
 
 	apple.respawnInNewPlace(4, &gameBoard, coordinates);
+	
 	glfwSetKeyCallback(window, key_callback);
 }
 //Procedura rysuj¹ca zawartoœæ sceny
@@ -91,22 +97,35 @@ void drawScene(GLFWwindow* window) {
 		MessageBoxA(NULL, ss.str().c_str(), "PRZEGRANA", MB_OK);
 		exit(EXIT_SUCCESS);
 	}
-
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	V = lookAt(
-		glm::vec3(0, zoom, -2*zoom),
+		glm::vec3(0, zoom, -2 * zoom),
 		glm::vec3(0, 0, 0),
 		glm::vec3(0, 1, 0)
 	);
+
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(value_ptr(P));
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(value_ptr(V*M));
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadMatrixf(value_ptr(V**gameBoard.getM()));
+
+	gameBoard.draw2(&V);
 	
-	gameBoard.draw(&V, floorVertices, floorTexCoords, floorVertexCount);
-	apple.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
-	snake.draw(&V, cubeVertices, cubeTexCoords, cubeVertexCount);
+
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadMatrixf(value_ptr(V**apple.getM()));
+
+	apple.draw2(&V);
+
+
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadMatrixf(value_ptr(V*M2));
+
+	snake.draw(&V);
+
+
 	if (check_time()) {
 		snake.move(&gameBoard, &apple);
 	}

@@ -1,7 +1,7 @@
 #include "Snake.h"
 
-void Snake::init(char *pathImage) {
-	this->snakeParts[0].init(pathImage);
+void Snake::init(char *pathImage, char *pathObj) {
+	this->snakeParts[0].init2(pathImage, pathObj);
 } 
 
 void Snake::setInitPosition(float x, float y, float z)
@@ -83,17 +83,17 @@ void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
 void Snake::grow() {
 	glm::mat4 M = glm::mat4(1.0f);
 	SnakePart snakePart(&M, false, snakeParts[length-1].getDirection());
-	snakePart.init("snakepart.png");
+	snakePart.init2("snake.png", "KostkaRosolowa2.obj");
 	this->snakeParts.push_back(snakePart);
 	
 	this->length++;
 	this->growing = false;
 } 
 
-void Snake::draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount)
+void Snake::draw(glm::mat4 *V)
 {
 	for (auto &snakePart : snakeParts) {
-		snakePart.draw(V, objectVertices, objectTexCords, vertexCount);
+		snakePart.draw2(V);
 	}
 }
 

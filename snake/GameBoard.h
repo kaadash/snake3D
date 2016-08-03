@@ -1,6 +1,7 @@
 #pragma once
 #include "Coordinate.h"
 #include "GameObject.h"
+
 class GameBoard : public GameObject
 {
 private:

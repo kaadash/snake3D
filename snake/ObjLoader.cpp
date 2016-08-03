@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <string>
 #include <cstring>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include "glm/glm.hpp"
 namespace {
+
 	bool loadOBJ(
 		const char * path,
 		std::vector<glm::vec3> & out_vertices,
@@ -44,7 +48,7 @@ namespace {
 			else if (strcmp(lineHeader, "vt") == 0) {
 				glm::vec2 uv;
 				fscanf_s(file, "%f %f\n", &uv.x, &uv.y);
-				uv.y = -uv.y; // Invert V coordinate since we will only use DDS texture, which are inverted. Remove if you want to use TGA or BMP loaders.
+				//uv.y = -uv.y; // Invert V coordinate since we will only use DDS texture, which are inverted. Remove if you want to use TGA or BMP loaders.
 				temp_uvs.push_back(uv);
 			}
 			else if (strcmp(lineHeader, "vn") == 0) {

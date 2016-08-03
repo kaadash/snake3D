@@ -19,7 +19,7 @@
 #include <string>
 #include <sstream>
 
-GLuint tex[2];
+GLuint tex[4];
 glm::mat4 V, V1, M = glm::mat4(1.0f), P;
 int speed = 1000;
 const float rotateStep = 0.1;

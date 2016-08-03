@@ -1,10 +1,12 @@
 #include "model.h"
 
-Model::Model(const char *pathToObj, glm::mat4 &M, glm::mat4 &V, glm::mat4 &P)
+Model::Model() {
+
+}
+
+void Model::init(const char *pathToObj, glm::mat4 &M)
 {
 	this->M = &M;
-	this->V = &V;
-	this->P = &P;
 	loadOBJ(pathToObj, this->vertices, this->uvs, this->normals);
 }
 
@@ -21,53 +23,37 @@ void Model::drawModel()
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(glm::vec3), &this->vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &this->vertices[0], GL_STATIC_DRAW);
 
 	GLuint uvbuffer;
 	glGenBuffers(1, &uvbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &this->uvs[0], GL_STATIC_DRAW);
 
-	// Clear the screen
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	GLuint normalbuffer;
+	glGenBuffers(1, &normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &this->normals[0], GL_STATIC_DRAW);
 
-	// Use our shader
-	// Compute the MVP matrix from keyboard and mouse input
-	glm::mat4 MVP = (*M) * (*V) * (*P);
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(value_ptr(*this->P));
-	glMatrixMode(GL_MODELVIEW);
-	
-	//*this->M = rotate(*this->M, 0.01f, glm::vec3(1, 0, 0));
-	//float multiplier = (std::rand() % 100) / 1000;
-	//*this->M = glm::translate(*this->M, glm::vec3(multiplier, 0.01f, 0.01f));
 
-	//glLoadMatrixf(value_ptr(*this->V**this->M));
 
-	glEnableVertexAttribArray(0);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glVertexAttribPointer(
-		0,                  // attribute
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	// 2nd attribute buffer : UVs
-	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-	glVertexAttribPointer(
-		1,                                // attribute
-		3,                                // size
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // stride
-		(void*)0                          // array buffer offset
-	);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	// Draw the triangle !
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glNormalPointer(GL_FLOAT, 0, NULL);
+
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+
+	//glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	//glDisableClientState(GL_NORMAL_ARRAY);
 
 }

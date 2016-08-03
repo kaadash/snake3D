@@ -1,5 +1,4 @@
-﻿  Food.cpp
-c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\food.cpp(14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\food.cpp(35): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\food.cpp(36): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+﻿  main.cpp
+c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\main.h(25): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\andrzej\documents\visual studio 2015\projects\snake3d\snake\main.cpp(138): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   snake.vcxproj -> C:\Users\Andrzej\Documents\Visual Studio 2015\Projects\snake3D\Debug\snake.exe

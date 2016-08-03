@@ -28,8 +28,8 @@ public:
 	void rotate(float deg, float direction);
 	void relativeRotate(glm::mat4 *relativeM, float degree);
 	void grow();
-	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
-	void init(char *pathImage);
+	void draw(glm::mat4 *V);
+	void init(char *pathImage, char *pathObj);
 	void setInitPosition(float x, float y, float z);
 	void turnLeft();
 	void turnRight();
