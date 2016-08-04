@@ -77,7 +77,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 
 	glEnable(GL_COLOR_MATERIAL);
 
-	//glColor3f(1, 0.2, 0.6);
+	glColor3f(1, 0.2, 0.6);
 
 	glGenTextures(4, &tex[0]);
 	
@@ -121,7 +121,7 @@ void drawScene(GLFWwindow* window) {
 		glm::vec3(0, 1, 0)
 	);
 
-	glClearColor(1, 1, 1, 1);
+	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glMatrixMode(GL_PROJECTION);
