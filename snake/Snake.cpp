@@ -1,7 +1,22 @@
 #include "Snake.h"
 
 void Snake::init(char *pathImage, char *pathObj) {
-	this->snakeParts[0].init2(pathImage, pathObj);
+	this->snakeParts[0].init(pathImage, pathObj);
+
+	std::vector<unsigned char> image;   //Alokuj wektor do wczytania obrazka
+	unsigned width, height;   //Zmienne do których wczytamy wymiary obrazka
+	unsigned imageTextureLoadingStatus = lodepng::decode(image, width, height, "snakepart.png");
+
+	glGenTextures(1, &this->tex); //Zainicjuj dwa uchwyty
+	glBindTexture(GL_TEXTURE_2D, this->tex); //Uaktywnij uchwyt
+											 //Wczytaj obrazek do pami?ci KG skojarzonej z uchwytem
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
+		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image.data());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glEnable(GL_TEXTURE_2D);
 } 
 
 void Snake::setInitPosition(float x, float y, float z)
@@ -82,8 +97,8 @@ void Snake::relativeRotate(glm::mat4 *relativeM, float degree) {
 
 void Snake::grow() {
 	glm::mat4 M = glm::mat4(1.0f);
-	SnakePart snakePart(&M, false, snakeParts[length-1].getDirection());
-	snakePart.init2("snake.png", "KostkaRosolowa2.obj");
+	SnakePart snakePart(&M, false, snakeParts[length-1].getDirection(), &this->tex);
+	//snakePart.init("snakepart.png", "cube.obj");
 	this->snakeParts.push_back(snakePart);
 	
 	this->length++;
@@ -93,7 +108,7 @@ void Snake::grow() {
 void Snake::draw(glm::mat4 *V)
 {
 	for (auto &snakePart : snakeParts) {
-		snakePart.draw2(V);
+		snakePart.draw(V);
 	}
 }
 

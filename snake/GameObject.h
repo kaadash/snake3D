@@ -19,10 +19,9 @@ protected:
 public:
 	GameObject();
 	GameObject(glm::mat4 *startingWorldMatrix);
-	void draw(glm::mat4 *V, float *objectVertices, float *objectTexCords, unsigned int vertexCount);
-	void draw2(glm::mat4 *V);
-	void init(char *pathImage);
-	void init2(char *pathImage, char *pathObj);
+	
+	void draw(glm::mat4 *V);
+	void init(char *pathImage, char *pathObj);
 	void setInitPosition(float x, float y, float z);
 	Coordinate *getCurrentPosition();
 	Coordinate &getCurrentPosition2();

@@ -16,6 +16,12 @@ public:
 		this->direction = direction;
 		this->head = head;
 	};
+	SnakePart(glm::mat4 *startingWorldMatrix, bool head, int direction, GLuint *tex) : GameObject(startingWorldMatrix) {
+		this->direction = direction;
+		this->head = head;
+		this->tex = *tex;
+		this->model.init("cube.obj", this->M);
+	};
 	void move(GameBoard *gameBoard, std::vector <SnakePart> &snakeParts);
 	void move(Coordinate * coordinate, glm::mat4 * relativeM, float degree);
 	void rotate(float deg, float direction);

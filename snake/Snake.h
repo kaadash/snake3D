@@ -4,6 +4,8 @@
 #include "GameBoard.h"
 #include "Food.h"
 #include "SnakePart.h"
+#include "lodepng.h"
+
 using namespace std;
 class Snake
 {
@@ -15,6 +17,7 @@ private:
 	bool growing;
 	short turn;
 	const float PI = 3.141592653589793f;
+	GLuint tex;
 
 public:
 	Snake(glm::mat4 *startingWorldMatrix) { 

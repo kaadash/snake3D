@@ -43,25 +43,19 @@ void key_callback(GLFWwindow* window, int key,
 		}
 		if (key == GLFW_KEY_S) speed += 100;
 	}
-
-	//if (action == GLFW_RELEASE) {
-	//	speed = 0;
-	//}
 }
 
-//Model obj("Jabko8.obj", M, V, P);
-//Model obj("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", M, V, P);
-//Model obj3("C:/Users/Andrzej/Documents/Visual Studio 2015/Projects/ogl/tutorial07_model_loading/cube.obj", newM3, V, P);
+
 
 void initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_LIGHTING); 
 	
 	glEnable(GL_LIGHT0);
 	GLfloat light1_ambient[] = { 1, 1, 1, 1.0 };
-	GLfloat light1_diffuse[] = { 0.2, 1.0, 1.0, 1.0 };
-	GLfloat light1_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat light1_position[] = { -2.0, 2.0, 1.0, 1.0 };
-	GLfloat spot_direction[] = { -1.0, -1.0, 0.0 };
+	GLfloat light1_diffuse[] = { 0.2f, 1.0f, 1.0f, 1.0f };
+	GLfloat light1_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat light1_position[] = { -2.0f, 2.0f, 1.0f, 1.0f };
+	GLfloat spot_direction[] = { -1.0f, -1.0f, 0.0f };
 
 	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
@@ -83,14 +77,13 @@ void initOpenGLProgram(GLFWwindow* window) {
 
 	glEnable(GL_COLOR_MATERIAL);
 
-	glColor3f(1, 0.2, 0.6);
+	//glColor3f(1, 0.2, 0.6);
 
-	//************Tutaj umieszczaj kod, który nale¿y wykonaæ raz, na pocz¹tku programu************
-	glGenTextures(4, &tex[0]); //Zainicjuj dwa uchwyty
+	glGenTextures(4, &tex[0]);
 	
-	gameBoard.init2("grass.png", "Podloga2.obj");
-	apple.init2("jabkotextura.png", "Jabko8.obj"); // to sie nie zmienia
-	snake.init("snake.png", "KostkaRosolowa2.obj");
+	gameBoard.init("floor.png", "floor.obj");
+	apple.init("apple.png", "apple.obj");
+	snake.init("snake.png", "cube.obj");
 	snake.setInitPosition(0, 1, 0);
 
 	M = glm::mat4(1.0f);
@@ -110,7 +103,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	
 	glfwSetKeyCallback(window, key_callback);
 }
-//Procedura rysuj¹ca zawartoœæ sceny
+
 void drawScene(GLFWwindow* window) {	
 	if (gameBoard.isLoose()) {
 		string tmp;
@@ -128,28 +121,17 @@ void drawScene(GLFWwindow* window) {
 		glm::vec3(0, 1, 0)
 	);
 
-	glClearColor(0, 0, 0, 1);
+	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(value_ptr(P));
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadMatrixf(value_ptr(V**gameBoard.getM()));
 
-	gameBoard.draw2(&V);
-	
+	gameBoard.draw(&V);
 
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadMatrixf(value_ptr(V**apple.getM()));
-
-	apple.draw2(&V);
-
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadMatrixf(value_ptr(V*M2));
+	apple.draw(&V);
 
 	snake.draw(&V);
-
 
 	if (check_time()) {
 		snake.move(&gameBoard, &apple);
